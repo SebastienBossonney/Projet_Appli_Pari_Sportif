@@ -3,12 +3,12 @@ package projetFilRouge.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import projetFilRouge.dto.EquipeDto;
+
 import projetFilRouge.model.Equipe;
 import projetFilRouge.repository.IEquipeRepository;
 import projetFilRouge.repository.ISportRepository;
@@ -37,7 +37,7 @@ public class EquipeService implements IService<Equipe> {
 		return equipeRepository.findByIdAndSportId(equipeId, sportId);
 	}
 	
-	public List<Equipe> getEquipesBySport(Long sportId) {
+	public List <Equipe> getEquipesBySport(Long sportId) {
 		return equipeRepository.findBySportId(sportId);
 	}
 	
@@ -79,13 +79,7 @@ public class EquipeService implements IService<Equipe> {
 	
 	}
 
-	
 
-	
-
-	
-
-	
-	
 
 }
+
