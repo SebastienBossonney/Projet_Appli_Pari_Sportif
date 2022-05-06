@@ -33,54 +33,54 @@ public class EquipeRestController {
 	private EquipeService equipeService;
 	
 	
-	@GetMapping(value = "/equipes")
-	public ResponseEntity<List<Equipe>> getEquipes(){		
-		return new ResponseEntity<>(equipeService.findAll(), HttpStatus.OK);
-	}
-	
-	//partie du controller pour la partie de l'équipe avec la classe joueur
-	
-	@PostMapping(value = "/equipes")
-	public ResponseEntity<Equipe> createEquipe(@Valid @RequestBody EquipeDto equipeDto) {
-		
-		Equipe equipeToSave = new Equipe();
-		
-		equipeToSave.setNom(equipeDto.getNom());
-		
-		return new ResponseEntity<>(equipeService.saveOrUpdate(equipeToSave), HttpStatus.CREATED);
-	}	
-	
-	@GetMapping(value = "/equipes/{id}")
-	public ResponseEntity<Equipe> getEquipe(@PathVariable("id") Long id) {		
-
-		Equipe equipe = equipeService.getOne(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The team has not been found with id: " + id));			
-		return new ResponseEntity<>(equipe, HttpStatus.OK);
-	}
-	
-	@PutMapping(value = "/equipes/{id}")
-	public ResponseEntity<Equipe> editEquipe(@PathVariable("id") Long id, @Valid @RequestBody EquipeDto equipeDto) {
-		
-		Equipe equipeToUpdate = equipeService.getOne(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The team has not been found with id: " + id));	
-		
-		equipeToUpdate.setNom(equipeDto.getNom());
-			
-		equipeService.saveOrUpdate(equipeToUpdate);
-		
-		return new ResponseEntity<>(equipeToUpdate, HttpStatus.OK);
-	}
-	
-	@DeleteMapping(value = "/equipes/{id}")
-	public ResponseEntity<?> deleteEquipe(@PathVariable("id") Long id) {
-		
-		Equipe equipeToDelete = equipeService.getOne(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The team has not been found with id: " + id));	
-		
-		equipeService.delete(id);
-		
-		return new ResponseEntity<>("Deleted SUCCESSFULLY", HttpStatus.OK);
-	}
+//	@GetMapping(value = "/equipes")
+//	public ResponseEntity<List<Equipe>> getEquipes(){		
+//		return new ResponseEntity<>(equipeService.findAll(), HttpStatus.OK);
+//	}
+//	
+//	//partie du controller pour la partie de l'équipe avec la classe joueur
+//	
+//	@PostMapping(value = "/equipes")
+//	public ResponseEntity<Equipe> createEquipe(@Valid @RequestBody EquipeDto equipeDto) {
+//		
+//		Equipe equipeToSave = new Equipe();
+//		
+//		equipeToSave.setNom(equipeDto.getNom());
+//		
+//		return new ResponseEntity<>(equipeService.saveOrUpdate(equipeToSave), HttpStatus.CREATED);
+//	}	
+//	
+//	@GetMapping(value = "/equipes/{id}")
+//	public ResponseEntity<Equipe> getEquipe(@PathVariable("id") Long id) {		
+//
+//		Equipe equipe = equipeService.getOne(id)
+//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The team has not been found with id: " + id));			
+//		return new ResponseEntity<>(equipe, HttpStatus.OK);
+//	}
+//	
+//	@PutMapping(value = "/equipes/{id}")
+//	public ResponseEntity<Equipe> editEquipe(@PathVariable("id") Long id, @Valid @RequestBody EquipeDto equipeDto) {
+//		
+//		Equipe equipeToUpdate = equipeService.getOne(id)
+//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The team has not been found with id: " + id));	
+//		
+//		equipeToUpdate.setNom(equipeDto.getNom());
+//			
+//		equipeService.saveOrUpdate(equipeToUpdate);
+//		
+//		return new ResponseEntity<>(equipeToUpdate, HttpStatus.OK);
+//	}
+//	
+//	@DeleteMapping(value = "/equipes/{id}")
+//	public ResponseEntity<?> deleteEquipe(@PathVariable("id") Long id) {
+//		
+//		Equipe equipeToDelete = equipeService.getOne(id)
+//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The team has not been found with id: " + id));	
+//		
+//		equipeService.delete(id);
+//		
+//		return new ResponseEntity<>("Deleted SUCCESSFULLY", HttpStatus.OK);
+//	}
 
 	
 //Partie du controller par le côté Equipe et Sport
@@ -108,7 +108,7 @@ public class EquipeRestController {
 	}
 	
 	@PostMapping("/sports/{sportId}/equipes")
-	public ResponseEntity<Equipe> save(@PathVariable("sportId") Long sportId, @Valid @RequestBody EquipeDto equipeDto) {
+	public ResponseEntity<Equipe> save(@PathVariable("sportId") Long sportId, @RequestBody EquipeDto equipeDto) {
 		
 		Equipe equipe= new Equipe();
 		equipe.setNom(equipeDto.getNom());
@@ -120,7 +120,7 @@ public class EquipeRestController {
 	
 	@PutMapping("/sports/{sportId}/equipes/{equipeId}")
 	public ResponseEntity<Equipe> editOneEquipeByport(@PathVariable("sportId") Long sportId,
-			@PathVariable("equipeId") Long equipeId, @Valid @RequestBody EquipeDto equipeDto){
+			@PathVariable("equipeId") Long equipeId,  @RequestBody EquipeDto equipeDto){
 		
 		Equipe equipe= new Equipe();
 		equipe.setNom(equipeDto.getNom());

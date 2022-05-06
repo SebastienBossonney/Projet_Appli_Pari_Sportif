@@ -36,6 +36,7 @@ public class Match {
 	@Column(name = "heureMatch")
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date heureMatch;
+	 
 	@Column(name = "lieu")
 	private String lieu;
 	@Column(name = "ville")
@@ -98,13 +99,11 @@ public class Match {
 		this.dateMatch = dateMatch;
 	}
 
-	public Date getHeureMatch() {
-		return heureMatch;
-	}
-
-	public void setHeureMatch(Date heureMatch) {
-		this.heureMatch = heureMatch;
-	}
+	
+	  public Date getHeureMatch() { return heureMatch; }
+	  
+	  public void setHeureMatch(Date heureMatch) { this.heureMatch = heureMatch; }
+	 
 
 	public String getLieu() {
 		return lieu;

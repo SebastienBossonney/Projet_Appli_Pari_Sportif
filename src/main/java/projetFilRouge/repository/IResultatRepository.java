@@ -11,7 +11,7 @@ import projetFilRouge.model.Resultat;
 @Repository
 public interface IResultatRepository extends JpaRepository<Resultat,Long>{
 
-	List<Resultat> findByMatchId(Long matchId);
+	Resultat findByMatchId(Long matchId);
 
 	Optional<Resultat> findByIdAndMatchId(Long resultatId, Long matchId);
 
