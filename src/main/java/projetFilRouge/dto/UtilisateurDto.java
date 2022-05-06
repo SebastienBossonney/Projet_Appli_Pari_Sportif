@@ -1,6 +1,7 @@
 package projetFilRouge.dto;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import projetFilRouge.model.Profil;
@@ -20,10 +21,11 @@ public class UtilisateurDto {
 	@Size(min = 2, max = 30, message = "Name should have at least 2 characters")
 	private String motDePasse;
 
-	@NotEmpty()
+	@NotNull()
 	private Role role;
-	@NotEmpty()
+	@NotNull()
 	private Profil profil;
+	
 	private double salaire;
 	private double montantDisponible;
 	private double montantTotalGagne;
