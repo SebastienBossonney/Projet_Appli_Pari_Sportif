@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -24,13 +27,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Match {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue /* (strategy = GenerationType.IDENTITY) */
 	private Long id;
 	@Version
 	private int version;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dateMatch")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dateMatch;
 	@Temporal(TemporalType.TIME)
 	@Column(name = "heureMatch")
@@ -51,7 +54,7 @@ public class Match {
 	@JoinColumn(name = "sport_id")
 	private Sport sport;
 	
-	@OneToMany(mappedBy="match")
+	@OneToMany(mappedBy="match", cascade = CascadeType.ALL, orphanRemoval = true)	
 	private List<EquipeMatch> equipeMatchs = new ArrayList<EquipeMatch>();
 	
 	@OneToMany(mappedBy="match")
