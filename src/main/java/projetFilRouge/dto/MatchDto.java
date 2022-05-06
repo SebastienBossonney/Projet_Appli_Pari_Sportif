@@ -1,12 +1,15 @@
 package projetFilRouge.dto;
 
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 import projetFilRouge.model.Equipe;
 import projetFilRouge.model.EquipeMatch;
@@ -15,12 +18,14 @@ import projetFilRouge.model.EquipeMatch;
 
 public class MatchDto {
 	
+
 	private Long id;
 	@NotEmpty
 	@JsonFormat(/* shape = JsonFormat.Shape.STRING, */ pattern = "dd/MM/yyyy" )
 	private Date dateMatch;
 	@NotEmpty
 	@JsonFormat ( pattern="HH:mm", timezone="Europe/Paris") 
+
 	private Date heureMatch;
 	 
 	@NotEmpty
@@ -28,6 +33,7 @@ public class MatchDto {
 	
 	private String ville;
 	
+
 	private String pays;
 	
 	private List<Equipe> equipes;
@@ -36,6 +42,7 @@ public class MatchDto {
 	
 	
 	/////getters and setters
+
 	public Date getDateMatch() {
 		return dateMatch;
 	}
@@ -73,6 +80,7 @@ public class MatchDto {
 	public void setPays(String pays) {
 		this.pays = pays;
 	}
+
 	
 	public List<Equipe> getEquipes() {
 		return equipes;

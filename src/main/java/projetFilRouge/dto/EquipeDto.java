@@ -9,7 +9,7 @@ public class EquipeDto {
 	@Size(min=2, max=30, message = "Name should have at least 2 characters")
 	private String nom;
 
-	
+
 	
 	public EquipeDto() {
 		super();
@@ -27,6 +27,7 @@ public class EquipeDto {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	
 	
 	
 	

@@ -18,30 +18,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projetFilRouge.dto.MatchDto;
+
 import projetFilRouge.model.Equipe;
 import projetFilRouge.model.EquipeMatch;
 import projetFilRouge.model.Match;
 import projetFilRouge.repository.IEquipeMatchRepository;
+
 import projetFilRouge.repository.IMatchRepository;
 import projetFilRouge.repository.ISportRepository;
 
 @Service(value = "matchService")
+
    public class MatchService /* implements IService<Match> */  {
+
 
 	@Autowired
 	private ISportRepository sportRepository;
 	@Autowired
 	private IMatchRepository matchRepository;
+
 	@Autowired
 	private IEquipeMatchRepository equipeMatchRepository;
 	
 	@Autowired
 	private EquipeMatchService equipeMatchService;
+
+
 	
 	public List<Match> getMatchsBySport(Long sportId) {
 
 		return matchRepository.findBySportId(sportId);
 	}
+
 
 	public List<Match> getMatchsSuivantesBySport(Long sportId) 
 	{
@@ -70,6 +78,7 @@ import projetFilRouge.repository.ISportRepository;
 				}
 
 
+
 		return matchsResultat;
 
 	}
@@ -80,6 +89,7 @@ import projetFilRouge.repository.ISportRepository;
 	}
 
 	// Enregistre une voiture selon son proprietaire(id)
+
 	public Optional<Match> saveMatchBySport(Long sportId, Match match, List<Equipe> equipes) {
 
 		return sportRepository.findById(sportId).map(sport -> {
