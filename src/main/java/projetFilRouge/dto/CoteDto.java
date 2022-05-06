@@ -1,15 +1,16 @@
 package projetFilRouge.dto;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import projetFilRouge.model.ChoixCote;
 
 public class CoteDto {
 
 	private Long id;
-	@NotEmpty
+	@NotNull()
 	private ChoixCote statut;
-	@NotEmpty
+	@NotEmpty()
 	private double valeur;
 
 	private Long matchId;
