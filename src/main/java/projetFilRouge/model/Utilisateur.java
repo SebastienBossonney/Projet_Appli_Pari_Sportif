@@ -40,6 +40,10 @@ public class Utilisateur {
 	private double montantTotalGagne;
 	@Column
 	private double montantTotalPerdu;
+	@Column
+	private double salaire;
+	@Column
+	private double montantDisponible;
 
 	@OneToOne
 	@JoinColumn(name = "utilisateur_limite")
@@ -155,5 +159,22 @@ public class Utilisateur {
 	public void setParis(List<Pari> paris) {
 		Paris = paris;
 	}
+
+	public double getSalaire() {
+		return salaire;
+	}
+
+	public void setSalaire(double salaire) {
+		this.salaire = salaire;
+	}
+
+	public double getMontantDisponible() {
+		return montantDisponible;
+	}
+
+	public void setMontantDisponible(double montantDisponible) {
+		this.montantDisponible = montantDisponible;
+	}
+	
 
 }

@@ -24,7 +24,8 @@ public class UtilisateurDto {
 	private Role role;
 	@NotEmpty()
 	private Profil profil;
-
+	private double salaire;
+	private double montantDisponible;
 	private double montantTotalGagne;
 	private double montantTotalPerdu;
 
@@ -33,7 +34,7 @@ public class UtilisateurDto {
 	}
 
 	public UtilisateurDto(String identifiant, String email, String motDePasse, Role role, Profil profil,
-			double montantTotalGagne, double montantTotalPerdu) {
+			double montantTotalGagne, double montantTotalPerdu, double salaire, double montantDisponible) {
 		super();
 		this.identifiant = identifiant;
 		this.email = email;
@@ -42,6 +43,7 @@ public class UtilisateurDto {
 		this.profil = profil;
 		this.montantTotalGagne = montantTotalGagne;
 		this.montantTotalPerdu = montantTotalPerdu;
+		this.montantDisponible = montantDisponible;
 	}
 
 	public String getIdentifiant() {
@@ -98,6 +100,18 @@ public class UtilisateurDto {
 
 	public void setMontantTotalPerdu(double montantTotalPerdu) {
 		this.montantTotalPerdu = montantTotalPerdu;
+	}
+
+	public double getSalaire() {
+		return salaire;
+	}
+
+	public void setSalaire(double salaire) {
+		this.salaire = salaire;
+	}
+
+	public double getMontantDisponible() {
+		return montantDisponible;
 	}
 
 }
