@@ -32,8 +32,9 @@ public class PariRestController {
 
 	@Autowired
 	private UtilisateurService utilisateurService;
+	
+	@GetMapping(value = "utilisateurs/{utilisateurId}/paris")
 
-	@GetMapping(value = "Utilisateurs/{utilisateurId}/Paris")
 	public ResponseEntity<List<PariDto>> getParis(@PathVariable("utilisateurId") Long utilisateurId) {
 
 		List<Pari> pari = pariService.getPariByUtilisateur(utilisateurId);
