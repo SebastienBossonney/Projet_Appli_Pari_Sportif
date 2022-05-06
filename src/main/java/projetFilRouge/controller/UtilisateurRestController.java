@@ -43,8 +43,10 @@ public class UtilisateurRestController {
 		userToSave.setMotDePasse(utilisateurDto.getMotDePasse());
 		userToSave.setRole(utilisateurDto.getRole());
 		userToSave.setProfil(utilisateurDto.getProfil());
+		userToSave.setSalaire(utilisateurDto.getSalaire());
 		userToSave.setMontantTotalGagne(utilisateurDto.getMontantTotalGagne());
 		userToSave.setMontantTotalPerdu(utilisateurDto.getMontantTotalPerdu());
+		userToSave.setMontantDisponible(utilisateurDto.getMontantDisponible());
 
 		return new ResponseEntity<>(utilisateurService.saveOrUpdate(userToSave), HttpStatus.CREATED);
 	}
@@ -69,8 +71,10 @@ public class UtilisateurRestController {
 		userToUpdate.setMotDePasse(utilisateurDto.getMotDePasse());
 		userToUpdate.setRole(utilisateurDto.getRole());
 		userToUpdate.setProfil(utilisateurDto.getProfil());
+		userToUpdate.setSalaire(utilisateurDto.getSalaire());
 		userToUpdate.setMontantTotalGagne(utilisateurDto.getMontantTotalGagne());
 		userToUpdate.setMontantTotalPerdu(utilisateurDto.getMontantTotalPerdu());
+		userToUpdate.setMontantDisponible(utilisateurDto.getMontantDisponible());
 
 		utilisateurService.saveOrUpdate(userToUpdate);
 
