@@ -9,13 +9,10 @@ import org.springframework.stereotype.Repository;
 import projetFilRouge.model.Equipe;
 
 @Repository
-public interface IEquipeRepository extends JpaRepository<Equipe,Long> {
+public interface IEquipeRepository extends JpaRepository<Equipe, Long> {
 
-	
 	List<Equipe> findBySportId(Long sportId);
 
 	Optional<Equipe> findByIdAndSportId(Long equipeId, Long sportId);
-
-
 
 }

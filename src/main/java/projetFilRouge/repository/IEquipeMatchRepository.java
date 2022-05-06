@@ -7,11 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import projetFilRouge.model.EquipeMatch;
 
-
 @Repository
-public interface IEquipeMatchRepository extends JpaRepository<EquipeMatch,Long> {
+public interface IEquipeMatchRepository extends JpaRepository<EquipeMatch, Long> {
 
-	
 	List<EquipeMatch> findAllByEquipe(Long idEquipe);
 
 	List<EquipeMatch> findAllByMatchId(Long matchId);

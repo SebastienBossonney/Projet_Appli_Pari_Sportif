@@ -6,18 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
 import projetFilRouge.model.Sport;
 import projetFilRouge.repository.ISportRepository;
 
 @Service(value = "sportService")
-public class SportService implements IService<Sport>  {
+public class SportService implements IService<Sport> {
 
 	@Autowired
 	private ISportRepository sportRepository;
-	
-	
+
 	@Override
 	public List<Sport> findAll() {
 		return sportRepository.findAll();
@@ -36,11 +33,7 @@ public class SportService implements IService<Sport>  {
 	@Override
 	public void delete(Long id) {
 		sportRepository.deleteById(id);
-		
+
 	}
-
-	
-
-
 
 }

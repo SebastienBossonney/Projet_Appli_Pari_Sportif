@@ -20,25 +20,22 @@ public class Joueur {
 	private Long id;
 	@Version
 	private int version;
-	@Column(name ="nom", length = 20)
+	@Column(name = "nom", length = 20)
 	private String nom;
-	@Column (name="nbBut")
+	@Column(name = "nbBut")
 	private int nbBut;
-	
+
 	@OneToOne
-	@JoinColumn(name="cote_id")
+	@JoinColumn(name = "cote_id")
 	private Cote cote;
 	@ManyToOne
-	@JoinColumn(name="equipe_id")
+	@JoinColumn(name = "equipe_id")
 	private Equipe equipe;
-	
-	
-	
-	
-	
+
 	public Joueur() {
 		super();
 	}
+
 	public Joueur(Long id, int version, String nom, int nbBut) {
 		super();
 		this.id = id;
@@ -46,44 +43,53 @@ public class Joueur {
 		this.nom = nom;
 		this.nbBut = nbBut;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
+
 	public String getNom() {
 		return nom;
 	}
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
 	public int getNbBut() {
 		return nbBut;
 	}
+
 	public void setNbBut(int nbBut) {
 		this.nbBut = nbBut;
 	}
+
 	public Cote getCote() {
 		return cote;
 	}
+
 	public void setCote(Cote cote) {
 		this.cote = cote;
 	}
+
 	public Equipe getEquipe() {
 		return equipe;
 	}
+
 	public void setEquipe(Equipe equipe) {
 		this.equipe = equipe;
 	}
-	
-	
-	
+
 }

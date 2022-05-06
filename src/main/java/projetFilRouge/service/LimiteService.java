@@ -2,15 +2,16 @@ package projetFilRouge.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import projetFilRouge.model.Limite;
-import projetFilRouge.model.Utilisateur;
 import projetFilRouge.repository.ILimiteRepository;
 import projetFilRouge.repository.IUtilisateurRepository;
 
-public class LimiteService{
+@Service(value = "limiteService")
+public class LimiteService {
 
 	@Autowired
 	private ILimiteRepository limiteRepository;
