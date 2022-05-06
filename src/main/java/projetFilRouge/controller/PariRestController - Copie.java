@@ -35,7 +35,7 @@ public class PariRestController {
 	@Autowired
 	private UtilisateurService utilisateurService;
 	
-	@GetMapping(value = "users/{userId}/paris")
+	@GetMapping(value = "Utilisateurs/{utilisateurId}/Paris")
 	public ResponseEntity<List<PariDto>> getParis(@PathVariable("utilisateurId") Long utilisateurId) {
 		
 		List<Pari> pari = pariService.getPariByUtilisateur(utilisateurId);
@@ -62,7 +62,7 @@ public class PariRestController {
 	 }
 	
 	// get match by Id
-		@GetMapping("/users/{userId}/paris/{pariId}")
+		@GetMapping("/utilisateurs/{utilisateurId}/paris/{pariId}")
 		public ResponseEntity<PariDto> getOnePariByUtilisateur(@PathVariable("utilisateurId") Long utilisateurId,
 				@PathVariable("pariId") Long pariId) 
 		{
@@ -88,7 +88,7 @@ public class PariRestController {
 		}
 
   
-		@PostMapping("/users/{userrId}/paris")
+		@PostMapping("/utilisateurs/{utilisateurId}/paris")
 		public ResponseEntity<PariDto> save(@PathVariable("utilisateurId") Long utilisateurId, 
 				@RequestBody PariDto pariDto) 
 		{
@@ -109,7 +109,7 @@ public class PariRestController {
 			return new ResponseEntity<>(pariDto, HttpStatus.OK);
 		}
 		
-		@PutMapping("/users/{userd}/paris/{pariId}")
+		@PutMapping("/utilisateurs/{utilisateurId}/paris/{pariId}")
 		public ResponseEntity<PariDto> editOnePariByUtilisateur(@PathVariable("utilisateurId") Long utilisateurId,
 				@PathVariable("pariId") Long pariId, @RequestBody PariDto pariDto) {
 
@@ -125,7 +125,7 @@ public class PariRestController {
 			return new ResponseEntity<>(pariDto, HttpStatus.OK);
 		}
 		
-		@DeleteMapping("/users/{userId}/paris/{parisId}")
+		@DeleteMapping("/utilisateurs/{utilisateurId}/paris/{parisId}")
 		public ResponseEntity<?> deleteOnePariByUtilisateur(@PathVariable("utilisateurId") Long utilisateurId,
 				@PathVariable("pariId") Long pariId) {
 
