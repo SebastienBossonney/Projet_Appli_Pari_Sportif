@@ -3,6 +3,7 @@ package projetFilRouge.dto;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -23,6 +24,7 @@ public class PariDto {
 	@JsonFormat(pattern = "HH:mm", timezone = "Europe/Paris")
 	private Date heurePari;
 
+	@NotNull()
 	private ChoixResultat resultat;
 
 	private double montantResultat;
