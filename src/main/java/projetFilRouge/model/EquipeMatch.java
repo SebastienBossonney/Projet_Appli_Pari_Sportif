@@ -25,13 +25,11 @@ public class EquipeMatch {
 	@ManyToOne
 	@JoinColumn(name = "equipe_id")
 	private Equipe equipe;
+	
 	@ManyToOne
 	@JoinColumn(name = "match_id")
 	private Match match;
-	
-	
-	
-	
+		
 	public EquipeMatch() {
 		super();
 	}
