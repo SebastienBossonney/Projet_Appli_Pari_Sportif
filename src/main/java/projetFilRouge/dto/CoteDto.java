@@ -1,24 +1,18 @@
 package projetFilRouge.dto;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Range;
 
 import projetFilRouge.model.ChoixCote;
 
 public class CoteDto {
-	
+
 	private Long id;
 	@NotEmpty
 	private ChoixCote statut;
 	@NotEmpty
 	private double valeur;
-	
+
 	private Long matchId;
-	
-	
 
 	public Long getId() {
 		return id;

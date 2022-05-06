@@ -9,24 +9,24 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import projetFilRouge.model.ChoixResultat;
 
 public class PariDto {
-	
+
 	private Long id;
-	
+
 	@NotEmpty
 	private double montantJoue;
-	
+
 	@NotEmpty
-	@JsonFormat(/* shape = JsonFormat.Shape.STRING, */ pattern = "dd/MM/yyyy" )
+	@JsonFormat(/* shape = JsonFormat.Shape.STRING, */ pattern = "dd/MM/yyyy")
 	private Date datePari;
-	
+
 	@NotEmpty
-	@JsonFormat ( pattern="HH:mm", timezone="Europe/Paris") 
+	@JsonFormat(pattern = "HH:mm", timezone = "Europe/Paris")
 	private Date heurePari;
-	
+
 	private ChoixResultat resultat;
-	
+
 	private double montantResultat;
-	
+
 	private Long utilisateurId;
 
 	public Long getUtilisateurId() {

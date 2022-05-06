@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-
 @Entity
 @Table(name = "cote")
 public class Cote {
@@ -34,7 +33,7 @@ public class Cote {
 	@OneToOne(mappedBy = "cote")
 	@JoinColumn(name = "cote_id")
 	private Pari pari;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "match_id")
 	private Match match;

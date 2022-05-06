@@ -7,12 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import projetFilRouge.model.Cote;
-import projetFilRouge.model.Match;
 
 @Repository
-public interface ICoteRepository extends JpaRepository<Cote,Long> {
+public interface ICoteRepository extends JpaRepository<Cote, Long> {
 
 	List<Cote> findByMatchId(Long matchId);
-	
+
 	Optional<Cote> findByIdAndMatchId(Long id, Long matchId);
 }

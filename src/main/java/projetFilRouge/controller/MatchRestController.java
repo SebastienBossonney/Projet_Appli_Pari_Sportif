@@ -1,13 +1,6 @@
 package projetFilRouge.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-
 import java.util.ArrayList;
-
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.fasterxml.jackson.core.JsonParser;
-
 import projetFilRouge.dto.MatchDto;
-
 import projetFilRouge.model.Equipe;
 import projetFilRouge.model.Match;
 import projetFilRouge.service.EquipeMatchService;
-import projetFilRouge.service.EquipeService;
-
 import projetFilRouge.service.MatchService;
 import projetFilRouge.service.SportService;
 
@@ -41,9 +29,6 @@ public class MatchRestController {
 
 	@Autowired
 	private MatchService matchService;
-
-	@Autowired
-	private EquipeService equipeService;
 
 	@Autowired
 	private EquipeMatchService equipeMatchService;
@@ -80,7 +65,6 @@ public class MatchRestController {
 		}
 		return new ResponseEntity<>(listMatchResultsDto, HttpStatus.OK);
 	}
-	
 
 	// method pour get the prochains match selon la date
 	@GetMapping("/sports/{sportId}/matchs")
@@ -145,9 +129,7 @@ public class MatchRestController {
 	}
 
 	@PostMapping("/sports/{sportId}/matchs")
-	public ResponseEntity<MatchDto> save(@PathVariable("sportId") Long sportId, 
-			@RequestBody MatchDto matchDto) 
-	{
+	public ResponseEntity<MatchDto> save(@PathVariable("sportId") Long sportId, @RequestBody MatchDto matchDto) {
 
 		Match match = new Match();
 
@@ -169,8 +151,6 @@ public class MatchRestController {
 		return new ResponseEntity<>(matchDto, HttpStatus.OK);
 	}
 
-	
-
 	@PutMapping("/sports/{sportId}/matchs/{matchId}")
 	public ResponseEntity<MatchDto> editOneMatchBySport(@PathVariable("sportId") Long sportId,
 			@PathVariable("matchId") Long matchId, @RequestBody MatchDto matchDto) {
@@ -178,12 +158,12 @@ public class MatchRestController {
 		sportService.getOne(sportId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sport" + " not found with id: " + sportId));
 
-		Match match = matchService.editOneMatch(matchId, sportId, matchDto).orElseThrow(
+		matchService.editOneMatch(matchId, sportId, matchDto).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Match " + "not found with id: " + matchId));
 
 		matchDto.setId(matchId);
 		matchDto.setSportId(sportId);
-		
+
 		return new ResponseEntity<>(matchDto, HttpStatus.OK);
 	}
 
@@ -201,4 +181,3 @@ public class MatchRestController {
 	}
 
 }
-

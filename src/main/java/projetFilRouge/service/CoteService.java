@@ -1,15 +1,12 @@
 package projetFilRouge.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import projetFilRouge.dto.CoteDto;
 import projetFilRouge.model.Cote;
-import projetFilRouge.model.Match;
 import projetFilRouge.repository.ICoteRepository;
 import projetFilRouge.repository.IMatchRepository;
 

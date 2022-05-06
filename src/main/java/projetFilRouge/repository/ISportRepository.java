@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import projetFilRouge.model.Sport;
 
 @Repository
-public interface ISportRepository extends JpaRepository<Sport,Long> {
+public interface ISportRepository extends JpaRepository<Sport, Long> {
 
 }

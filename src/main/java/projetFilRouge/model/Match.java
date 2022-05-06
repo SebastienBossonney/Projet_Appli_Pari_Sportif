@@ -8,7 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,13 +18,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "match")
 public class Match {
-	
+
 	@Id
 	@GeneratedValue /* (strategy = GenerationType.IDENTITY) */
 	private Long id;
@@ -39,30 +37,27 @@ public class Match {
 	@Column(name = "heureMatch")
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date heureMatch;
-	 
+
 	@Column(name = "lieu")
 	private String lieu;
 	@Column(name = "ville")
 	private String ville;
 	@Column(name = "pays")
 	private String pays;
-	
+
 	@OneToOne(mappedBy = "match")
 	private Resultat resultat = null;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "sport_id")
 	private Sport sport;
-	
-	@OneToMany(mappedBy="match", cascade = CascadeType.ALL, orphanRemoval = true)	
-	private List<EquipeMatch> equipeMatchs = new ArrayList<EquipeMatch>();
-	
-	@OneToMany(mappedBy="match")
-	private List<Cote> cotes= new ArrayList<Cote>();
 
-	
-	
-	
+	@OneToMany(mappedBy = "match", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EquipeMatch> equipeMatchs = new ArrayList<EquipeMatch>();
+
+	@OneToMany(mappedBy = "match")
+	private List<Cote> cotes = new ArrayList<Cote>();
+
 	public Match() {
 		super();
 	}
@@ -102,11 +97,13 @@ public class Match {
 		this.dateMatch = dateMatch;
 	}
 
-	
-	  public Date getHeureMatch() { return heureMatch; }
-	  
-	  public void setHeureMatch(Date heureMatch) { this.heureMatch = heureMatch; }
-	 
+	public Date getHeureMatch() {
+		return heureMatch;
+	}
+
+	public void setHeureMatch(Date heureMatch) {
+		this.heureMatch = heureMatch;
+	}
 
 	public String getLieu() {
 		return lieu;
@@ -164,5 +161,4 @@ public class Match {
 		this.cotes = cotes;
 	}
 
-	
 }

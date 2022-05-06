@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import projetFilRouge.model.Avertissement;
 import projetFilRouge.repository.IAvertissementRepository;
 import projetFilRouge.repository.IUtilisateurRepository;
 
 
-
+@Service(value = "avertissementServic")
 public class AvertissementService{
 
 	@Autowired

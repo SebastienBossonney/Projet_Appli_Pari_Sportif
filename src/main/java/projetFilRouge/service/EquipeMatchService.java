@@ -44,7 +44,7 @@ public class EquipeMatchService {
 		equipeMatch1 = equipeMatchRepository.save(equipeMatch1);
 		equipeMatch2 = equipeMatchRepository.save(equipeMatch2);
 
-		List<EquipeMatch> equipeMatchs = new ArrayList();
+		List<EquipeMatch> equipeMatchs = new ArrayList<EquipeMatch>();
 
 		equipeMatchs.add(equipeMatch1);
 		equipeMatchs.add(equipeMatch2);

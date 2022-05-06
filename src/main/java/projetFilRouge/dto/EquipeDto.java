@@ -6,16 +6,14 @@ import javax.validation.constraints.Size;
 public class EquipeDto {
 
 	@NotEmpty()
-	@Size(min=2, max=30, message = "Name should have at least 2 characters")
+	@Size(min = 2, max = 30, message = "Name should have at least 2 characters")
 	private String nom;
 
-
-	
 	public EquipeDto() {
 		super();
 	}
 
-	public EquipeDto( String nom) {
+	public EquipeDto(String nom) {
 		super();
 		this.nom = nom;
 	}
@@ -27,8 +25,5 @@ public class EquipeDto {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
-	
-	
-	
+
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import projetFilRouge.model.Joueur;
 
 @Repository
-public interface IJoueurRepository  extends JpaRepository<Joueur,Long>{
+public interface IJoueurRepository extends JpaRepository<Joueur, Long> {
 
 }

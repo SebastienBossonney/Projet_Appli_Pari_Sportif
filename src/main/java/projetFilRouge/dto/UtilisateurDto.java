@@ -1,6 +1,6 @@
 package projetFilRouge.dto;
 
-import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import projetFilRouge.model.Profil;
@@ -8,29 +8,26 @@ import projetFilRouge.model.Role;
 
 public class UtilisateurDto {
 
-	@Column(nullable = false)
-	@Size(min = 2, max = 16, message = "Identifiant should have at least 2 characters and maximum 16")
+	@NotEmpty()
+	@Size(min = 2, max = 30, message = "Name should have at least 2 characters")
 	private String identifiant;
 
-	@Column(nullable = false)
-	@Size(min = 2, max = 16, message = "Email should have at least 2 characters and maximum 16")
+	@NotEmpty()
+	@Size(min = 2, max = 30, message = "Name should have at least 2 characters")
 	private String email;
 
-	@Column(name = "password", nullable = false)
-	@Size(min = 2, max = 16, message = "Password should have at least 2 characters and maximum 16")
+	@NotEmpty()
+	@Size(min = 2, max = 30, message = "Name should have at least 2 characters")
 	private String motDePasse;
 
-	@Column(length = 15)
+	@NotEmpty()
 	private Role role;
-	@Column(nullable = false)
+	@NotEmpty()
 	private Profil profil;
 
-	@Column
 	private double montantTotalGagne;
-	@Column
 	private double montantTotalPerdu;
 
-	
 	public UtilisateurDto() {
 		super();
 	}
