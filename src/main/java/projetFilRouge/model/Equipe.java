@@ -44,7 +44,7 @@ public class Equipe {
 	@Fetch(value=FetchMode.SUBSELECT)
 	private List<EquipeMatch> equipeMatchs = new ArrayList<EquipeMatch>();
 	
-		
+	
 	
 	public Equipe() {
 		super();
