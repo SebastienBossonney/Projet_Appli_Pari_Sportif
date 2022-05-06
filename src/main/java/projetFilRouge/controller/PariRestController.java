@@ -35,7 +35,7 @@ public class PariRestController {
 	@Autowired
 	private UtilisateurService utilisateurService;
 	
-	@GetMapping(value = "users/{userId}/paris")
+	@GetMapping(value = "utilisateurs/{utilisateurId}/paris")
 	public ResponseEntity<List<PariDto>> getParis(@PathVariable("utilisateurId") Long utilisateurId) {
 		
 		List<Pari> pari = pariService.getPariByUtilisateur(utilisateurId);
@@ -88,7 +88,7 @@ public class PariRestController {
 		}
 
   
-		@PostMapping("/users/{utiliateurId}/paris")
+		@PostMapping("/utilisateurs/{utilisateurId}/paris")
 		public ResponseEntity<PariDto> save(@PathVariable("utilisateurId") Long utilisateurId, 
 				@RequestBody PariDto pariDto) 
 		{
