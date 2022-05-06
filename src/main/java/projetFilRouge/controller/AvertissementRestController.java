@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import projetFilRouge.model.Avertissement;
+import projetFilRouge.model.Sport;
+import projetFilRouge.model.Utilisateur;
 import projetFilRouge.service.AvertissementService;
 import projetFilRouge.service.UtilisateurService;
 
@@ -27,20 +29,21 @@ public class AvertissementRestController {
 
 	@Autowired
 	private AvertissementService avertissementService;
+
 	
-	@GetMapping("/users/{userId}/avertissements")
+	@GetMapping("/utilisateurs/{userId}/avertissements")
 	public ResponseEntity<List<Avertissement>> getAvertissementByUser(@PathVariable("userId") Long userId){
-		utilisateurService.getById(userId).orElseThrow(
+		utilisateurService.getOne(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + userId));
 		
 		return new ResponseEntity<>(avertissementService.getAvertissementsByUser(userId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/users/{userId}/avertissements/{avertissementId}")
+	@GetMapping("/utilisateurs/{userId}/avertissements/{avertissementId}")
 	public ResponseEntity<Avertissement> getOneAvertissementByUser(@PathVariable("userId") Long userId,
 			@PathVariable("avertissementId") Long avertissementId){
 		
-		utilisateurService.getById(userId).orElseThrow(
+		utilisateurService.getOne(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + userId));
 		
 		Avertissement avertissement = avertissementService.getOneAvertissementByUser(avertissementId, userId).orElseThrow(
@@ -49,18 +52,33 @@ public class AvertissementRestController {
 		return new ResponseEntity<>(avertissement, HttpStatus.OK);
 	}
 	
-	@PostMapping("/users/{userId}/avertissements")
+	@PostMapping("/utilisateurs/{userId}/avertissements")
 	public ResponseEntity<Avertissement> save(@PathVariable("userId") Long userId, @RequestBody Avertissement avertissement) {
 		avertissementService.saveAvertissementByUser(userId, avertissement).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found :" + userId));
 		return new ResponseEntity<>(avertissement, HttpStatus.OK);
 	}
 	
-	@PutMapping("/users/{userId}/avertissements/{avertissementId}")
-	public ResponseEntity<Avertissement> editOneCarByEmployee(@PathVariable("userId") Long userId,
+	@PostMapping("/utilisateurs/{userId}/avertissements/{avertissementId}")
+	public ResponseEntity<Avertissement> createAvertissement(@PathVariable("userId") Long userId, @RequestBody Avertissement avertissement) {
+		
+		Utilisateur user = utilisateurService.getOne(userId).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + userId));
+		Avertissement avertissementToSave = new Avertissement();
+		
+		avertissementToSave.setDescription(avertissement.getDescription());
+		avertissementToSave.setUtilisateur(user);
+		
+		avertissementService.saveAvertissementByUser(userId, avertissementToSave);
+		
+		return new ResponseEntity<>(avertissementToSave, HttpStatus.CREATED);
+	}	
+	
+	@PutMapping("/utilisateurs/{userId}/avertissements/{avertissementId}")
+	public ResponseEntity<Avertissement> editOneAvertissementByEmployee(@PathVariable("userId") Long userId,
 			@PathVariable("avertissementId") Long avertissementId, @RequestBody Avertissement avertissement){
 		
-		utilisateurService.getById(userId).orElseThrow(
+		utilisateurService.getOne(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + userId));
 		
 		avertissementService.editOneAvertissementByUser(avertissementId, userId, avertissement).orElseThrow(
@@ -69,11 +87,11 @@ public class AvertissementRestController {
 		return new ResponseEntity<>(avertissement, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/users/{userId}/avertissements/{avertissementId}")
+	@DeleteMapping("/utilisateurs/{userId}/avertissements/{avertissementId}")
 	public ResponseEntity<?> deleteOneAvertissementByUser(@PathVariable("userId") Long userId,
 			@PathVariable("avertissementId") Long avertissementId){
 		
-		utilisateurService.getById(userId).orElseThrow(
+		utilisateurService.getOne(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + userId));
 		
 		avertissementService.deleteOneAvertissementByUser(avertissementId, userId).orElseThrow(

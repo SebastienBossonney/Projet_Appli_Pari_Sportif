@@ -32,15 +32,6 @@ public class UtilisateurRestController {
 		@Autowired
 		private UtilisateurService utilisateurService;
 		
-		@Autowired
-		private ResultatService resultatService;
-		
-		@Autowired
-		private MatchService matchService;
-		
-		@Autowired
-		private EquipeService equipeService;
-		
 
 		@GetMapping(value = "/users")
 		public ResponseEntity<List<Utilisateur>> getUsers(){		
@@ -58,6 +49,8 @@ public class UtilisateurRestController {
 			userToSave.setMotDePasse(utilisateurDto.getMotDePasse());
 			userToSave.setRole(utilisateurDto.getRole());
 			userToSave.setProfil(utilisateurDto.getProfil());
+			userToSave.setMontantTotalGagne(utilisateurDto.getMontantTotalGagne());
+			userToSave.setMontantTotalPerdu(utilisateurDto.getMontantTotalPerdu());
 
 			
 			return new ResponseEntity<>(utilisateurService.saveOrUpdate(userToSave), HttpStatus.CREATED);
@@ -66,7 +59,7 @@ public class UtilisateurRestController {
 		@GetMapping(value = "/utilisateur/{id}")
 		public ResponseEntity<Utilisateur> getUser(@PathVariable("id") Long id) {		
 
-			Utilisateur user = utilisateurService.getById(id)
+			Utilisateur user = utilisateurService.getOne(id)
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));			
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		}
@@ -74,7 +67,7 @@ public class UtilisateurRestController {
 		@PutMapping(value = "/utilisateur/{id}")
 		public ResponseEntity<Utilisateur> editUser(@PathVariable("id") Long id, @Valid @RequestBody UtilisateurDto utilisateurDto) {
 			
-			Utilisateur userToUpdate = utilisateurService.getById(id)
+			Utilisateur userToUpdate = utilisateurService.getOne(id)
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));	
 			
 			userToUpdate.setIdentifiant(utilisateurDto.getIdentifiant());
@@ -82,6 +75,8 @@ public class UtilisateurRestController {
 			userToUpdate.setMotDePasse(utilisateurDto.getMotDePasse());
 			userToUpdate.setRole(utilisateurDto.getRole());
 			userToUpdate.setProfil(utilisateurDto.getProfil());
+			userToUpdate.setMontantTotalGagne(utilisateurDto.getMontantTotalGagne());
+			userToUpdate.setMontantTotalPerdu(utilisateurDto.getMontantTotalPerdu());
 			
 			utilisateurService.saveOrUpdate(userToUpdate);
 			
@@ -89,78 +84,18 @@ public class UtilisateurRestController {
 		}
 		
 		@DeleteMapping(value = "/users/{id}")
-		public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
+		public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 			
-			Utilisateur userToDelete = utilisateurService.getById(id)
+			Utilisateur userToDelete = utilisateurService.getOne(id)
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));	
 			
-			utilisateurService.delete(userToDelete);
+			utilisateurService.deleteUser(userToDelete);
 			return new ResponseEntity<>("Deleted SUCCESSFULLY", HttpStatus.OK);
 		}
 		
 	
 		// Controlleur lié aux équipes (creation + suppresion)
-		@GetMapping("utilisateur/{utilisateurId}/sports/{sportId}/equipes")
-		public ResponseEntity<List<Equipe>> getEquipesBysport(@PathVariable("sportId") Long sportId){
-			
-			sportService.getOne(sportId).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "sport not found with id: " + sportId));
-			
-			return new ResponseEntity<>(equipeService.getEquipesBySport(sportId), HttpStatus.OK);
-		}
-		
-		@GetMapping("/sports/{sportId}/equipes/{equipeId}")
-		public ResponseEntity<Equipe> getOneEquipeBySport(@PathVariable("sportId") Long sportId,
-				@PathVariable("equipeId") Long equipeId){
-			
-			sportService.getOne(sportId).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "sport not found with id: " + sportId));
-			
-			Equipe equipe = equipeService.getOneEquipeBySport(equipeId, sportId).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "equipe not found with id: " + equipeId));
-			
-			return new ResponseEntity<>(equipe, HttpStatus.OK);
-		}
-		
-		@PostMapping("/sports/{sportId}/equipes")
-		public ResponseEntity<Equipe> save(@PathVariable("sportId") Long sportId, @Valid @RequestBody EquipeDto equipeDto) {
-			
-			Equipe equipe= new Equipe();
-			equipe.setNom(equipeDto.getNom());
-			
-			equipeService.saveEquipeBySport(sportId, equipe).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "sport not found with id: :" + sportId));
-			return new ResponseEntity<>(equipe, HttpStatus.OK);
-		}
-		
-		@PutMapping("/sports/{sportId}/equipes/{equipeId}")
-		public ResponseEntity<Equipe> editOneEquipeByport(@PathVariable("sportId") Long sportId,
-				@PathVariable("equipeId") Long equipeId, @Valid @RequestBody EquipeDto equipeDto){
-			
-			Equipe equipe= new Equipe();
-			equipe.setNom(equipeDto.getNom());
-			
-			sportService.getOne(sportId).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "sport not found with id: " + sportId));
-			
-			equipeService.editOneEquipeBySport(equipeId, sportId, equipe).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "equipe not found with id: " + equipeId));
-			
-			return new ResponseEntity<>(equipe, HttpStatus.OK);
-		}
-		
-		@DeleteMapping("/sports/{sportId}/equipes/{equipeId}")
-		public ResponseEntity<?> deleteOneEquipeBySport(@PathVariable("sportId") Long sportId,
-				@PathVariable("equipeId") Long equipeId){
-			
-			sportService.getOne(sportId).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "sport not found with id: " + sportId));
-			
-			equipeService.deleteOneEquipeBySport(equipeId, sportId).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "equipe not found with id: " + equipeId));
-			
-			return new ResponseEntity<>("DELETED successfully !", HttpStatus.OK);
-		}
+
 		
 		//Controlleur pour les matchs
 		

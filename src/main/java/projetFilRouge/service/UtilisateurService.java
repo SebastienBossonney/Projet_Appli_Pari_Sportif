@@ -11,7 +11,7 @@ import projetFilRouge.repository.ILimiteRepository;
 import projetFilRouge.repository.IPariRepository;
 import projetFilRouge.repository.IUtilisateurRepository;
 
-public class UtilisateurService implements IService<Utilisateur> {
+public class UtilisateurService implements IService<Utilisateur>{
 
 	@Autowired
 	private ILimiteRepository limiteRepository;
@@ -25,24 +25,33 @@ public class UtilisateurService implements IService<Utilisateur> {
 	@Autowired
 	private IUtilisateurRepository utilisateurRepository;
 
-	@Override
+
 	public List<Utilisateur> findAll() {
 		return utilisateurRepository.findAll();
 	}
 
-	@Override
 	public Utilisateur saveOrUpdate(Utilisateur user) {
 		return utilisateurRepository.save(user);
 	}
 
+
 	@Override
-	public Optional<Utilisateur> getById(Long id) {
+	public Optional<Utilisateur> getOne(Long id) {
 		return utilisateurRepository.findById(id);
 	}
 
 	@Override
-	public void delete(Utilisateur user) {
-		utilisateurRepository.delete(user);
+	public void delete(Long id) {
+		utilisateurRepository.deleteById(id);
+		
 	}
+
+	public void deleteUser(Utilisateur userToDelete) {
+		utilisateurRepository.delete(userToDelete);
+		
+	}
+
+
+
 
 }

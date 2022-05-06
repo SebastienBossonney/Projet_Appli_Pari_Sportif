@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 import projetFilRouge.model.Limite;
+import projetFilRouge.model.Utilisateur;
 import projetFilRouge.repository.ILimiteRepository;
 import projetFilRouge.repository.IUtilisateurRepository;
 

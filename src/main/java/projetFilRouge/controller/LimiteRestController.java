@@ -17,24 +17,29 @@ import projetFilRouge.dto.UtilisateurDto;
 import projetFilRouge.model.Limite;
 import projetFilRouge.model.Utilisateur;
 import projetFilRouge.service.LimiteService;
+import projetFilRouge.service.UtilisateurService;
 
 public class LimiteRestController {
 	private LimiteService limiteService;
 	
+	private UtilisateurService utilisateurService;
 
-//Creer une limite ? Bizarre vu que l'utilisateur doit directement creer une limite..
 	
-//	@PostMapping(value = "/users/{userId}/limit")
-//	public ResponseEntity<Limite> createLimit(@Valid @RequestBody LimiteDto limiteDto) {
-//		
-//		Limite limitToCrea = new Limite();
-//		
-//		limitToSave.setValeur(limiteDto.getValeur());
-//		limitToSave.setDuree(limiteDto.getDuree());
-//
-//		
-//		return new ResponseEntity<>(limiteService.saveLimitByUser(limitToSave), HttpStatus.CREATED);
-//	}	
+	@PostMapping(value = "/users/{userId}/limite")
+	public ResponseEntity<Limite> createLimit(@PathVariable("userId") Long utilisateurId, @Valid @RequestBody LimiteDto limiteDto) {
+		
+		Utilisateur user = utilisateurService.getOne(utilisateurId).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + utilisateurId));
+		Limite limitToSave = new Limite();
+		
+		limitToSave.setValeur(limiteDto.getValeur());
+		limitToSave.setDuree(limiteDto.getDuree());
+
+		limitToSave.setUtilisateur(user);
+		limiteService.saveLimitByUser(utilisateurId,limitToSave);
+		
+		return new ResponseEntity<>(limitToSave, HttpStatus.CREATED);
+	}	
 
 	
 	@GetMapping(value = "/utilisateur/{utilisateurId}/limite")
