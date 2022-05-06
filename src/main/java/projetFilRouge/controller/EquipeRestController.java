@@ -108,7 +108,7 @@ public class EquipeRestController {
 	}
 	
 	@PostMapping("/sports/{sportId}/equipes")
-	public ResponseEntity<Equipe> save(@PathVariable("sportId") Long sportId, @Valid @RequestBody EquipeDto equipeDto) {
+	public ResponseEntity<Equipe> save(@PathVariable("sportId") Long sportId, @RequestBody EquipeDto equipeDto) {
 		
 		Equipe equipe= new Equipe();
 		equipe.setNom(equipeDto.getNom());
@@ -120,7 +120,7 @@ public class EquipeRestController {
 	
 	@PutMapping("/sports/{sportId}/equipes/{equipeId}")
 	public ResponseEntity<Equipe> editOneEquipeByport(@PathVariable("sportId") Long sportId,
-			@PathVariable("equipeId") Long equipeId, @Valid @RequestBody EquipeDto equipeDto){
+			@PathVariable("equipeId") Long equipeId,  @RequestBody EquipeDto equipeDto){
 		
 		Equipe equipe= new Equipe();
 		equipe.setNom(equipeDto.getNom());
