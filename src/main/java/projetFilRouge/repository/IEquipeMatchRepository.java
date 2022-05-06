@@ -13,7 +13,8 @@ import projetFilRouge.model.EquipeMatch;
 public interface IEquipeMatchRepository extends JpaRepository<EquipeMatch,Long> {
 
 	
-	List<EquipeMatch> findAllByEquipe(@Param("id") Long idEquipe);
+	List<EquipeMatch> findAllByEquipe(Long idEquipe);
 
-	List<EquipeMatch> findAllByMatch(@Param("id") Long idMatch);
+
+	List<EquipeMatch> findAllByMatchId(Long matchId);
 }
