@@ -24,7 +24,7 @@ public class ResultatService {
 	private IResultatRepository resultatRepository;
 
 	
-		public List<Resultat> getResultatsByMatch(Long matchId) {
+		public Resultat getResultatsByMatch(Long matchId) {
 			return resultatRepository.findByMatchId(matchId);
 		}
 
@@ -41,8 +41,19 @@ public class ResultatService {
 		
 		public Optional<Resultat> saveResultatByMatch(Long matchId, Resultat resultat) {
 			return matchRepository.findById(matchId).map(match -> {
-				resultat.setMatch(match);
+				resultat.setMatch(match); 
 				return resultatRepository.save(resultat);
+				
+//				Resultat resultat1 = resultatRepository.save(resultat);
+//				ResultatDto resultatPourAfficher = new ResultatDto();
+//				resultatPourAfficher.setEquipe1(resultat1.getEquipe1());
+//				resultatPourAfficher.setScoreEquipe1(resultat1.getScoreEquipe1());
+//				resultatPourAfficher.setEquipe2(resultat1.getEquipe2());
+//				resultatPourAfficher.setScoreEquipe2(resultat1.getScoreEquipe2()) ;
+//				resultatPourAfficher.setMatchNul(resultat1.isMatchNul());
+//				resultatPourAfficher.setMatchId(resultat1.getMatch().getId());
+//				return resultatPourAfficher;
+			   
 			});
 		}
 
