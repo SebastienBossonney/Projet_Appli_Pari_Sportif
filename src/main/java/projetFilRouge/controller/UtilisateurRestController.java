@@ -28,13 +28,15 @@ public class UtilisateurRestController {
 	@Autowired
 	private UtilisateurService utilisateurService;
 
+
+	
 	@GetMapping(value = "/utilisateurs")
 	public ResponseEntity<List<Utilisateur>> getUsers() {
 		return new ResponseEntity<>(utilisateurService.findAll(), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/utilisateurs")
-	public ResponseEntity<Utilisateur> createEmployee(@Valid @RequestBody UtilisateurDto utilisateurDto) {
+	public ResponseEntity<Utilisateur> createUser(@Valid @RequestBody UtilisateurDto utilisateurDto) {
 
 		Utilisateur userToSave = new Utilisateur();
 
@@ -50,6 +52,7 @@ public class UtilisateurRestController {
 
 		return new ResponseEntity<>(utilisateurService.saveOrUpdate(userToSave), HttpStatus.CREATED);
 	}
+	
 
 	@GetMapping(value = "/utilisateurs/{id}")
 	public ResponseEntity<Utilisateur> getUser(@PathVariable("id") Long id) {
@@ -90,5 +93,11 @@ public class UtilisateurRestController {
 		utilisateurService.deleteUser(userToDelete);
 		return new ResponseEntity<>("Deleted SUCCESSFULLY", HttpStatus.OK);
 	}
+	
+//	//Retourner utilisateur  pour l'ID si trouvé et envoyer 
+//	@PostMapping(value="/utilisateurs/{identifiant}/{password}")
+//	public ResponseEntity<UtilisateuDtor> (@PathVariable("identifiant") String identifiant, @PathVariable("password") String password) {
+//		return new ResponseEntity<>(utilisateurService.findByIdentifiantAndPassword(identifiant,password), HttpStatus.FOUND);
+//	}
 
 }

@@ -122,5 +122,6 @@ public class ResultatRestController {
 
 		return new ResponseEntity<>("DELETED successfully !", HttpStatus.OK);
 	}
+	
 
 }

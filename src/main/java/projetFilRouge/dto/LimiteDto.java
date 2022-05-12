@@ -6,9 +6,9 @@ import javax.validation.constraints.NotEmpty;
 
 public class LimiteDto {
 
-	@NotEmpty()
+	
 	private double valeur;
-	@NotEmpty()
+	
 	private Date duree;
 
 	public LimiteDto() {
