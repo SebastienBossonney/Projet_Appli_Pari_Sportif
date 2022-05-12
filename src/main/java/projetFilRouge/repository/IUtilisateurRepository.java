@@ -8,4 +8,7 @@ import projetFilRouge.model.Utilisateur;
 @Repository
 public interface IUtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 
+	boolean findByIdentifiantAndPassword(String identifiant, String password);
+		
+
 }
