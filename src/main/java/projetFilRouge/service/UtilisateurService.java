@@ -38,9 +38,16 @@ public class UtilisateurService implements IService<Utilisateur> {
 		utilisateurRepository.delete(userToDelete);
 
 	}
-	public void findByIdentifiantAndPassword(String identifiant, String password) {
-		utilisateurRepository.findByIdentifiantAndPassword(identifiant, password);
+
+	public Optional<Utilisateur> findByIdentifiantAndPassword(String identifiant, String password) {
+		return utilisateurRepository.findByIdentifiantAndMotDePasse(identifiant, password);
 
 	}
+
+	public Utilisateur updateMontant(Utilisateur user) {
+		return utilisateurRepository.save(user);
+	}
+
+
 
 }

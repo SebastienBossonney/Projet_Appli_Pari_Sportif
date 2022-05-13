@@ -16,6 +16,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat;
+
 @Entity
 @Table(name = "users")
 public class Utilisateur {
@@ -28,7 +32,7 @@ public class Utilisateur {
 	private int version;
 	@Column(length = 255)
 	private String email;
-	@Column(length = 100)
+	@Column(name="password",length = 100)
 	private String motDePasse;
 	@Enumerated(EnumType.STRING)
 	@Column(length = 15)
@@ -62,6 +66,24 @@ public class Utilisateur {
 	public Utilisateur(String identifiant) {
 		super();
 		this.identifiant = identifiant;
+	}
+	
+	
+
+	public Utilisateur(Long id, String identifiant, int version, String email, String motDePasse, Role role,
+			Profil profil, double montantTotalGagne, double montantTotalPerdu, double salaire, double montantDisponible) {
+		super();
+		this.id = id;
+		this.identifiant = identifiant;
+		this.version = version;
+		this.email = email;
+		this.motDePasse = motDePasse;
+		this.role = role;
+		this.profil = profil;
+		this.montantTotalGagne = montantTotalGagne;
+		this.montantTotalPerdu = montantTotalPerdu;
+		this.salaire = salaire;
+		this.montantDisponible = montantDisponible;
 	}
 
 	public Long getId() {
@@ -173,7 +195,11 @@ public class Utilisateur {
 	}
 
 	public void setMontantDisponible(double montantDisponible) {
-		this.montantDisponible = montantDisponible;
+		if(montantDisponible < 0 || montantDisponible > 500) {
+			throw new IllegalArgumentException("le montant doit etre entre 0 et 500");
+		} else {
+			this.montantDisponible = montantDisponible;
+		}
 	}
 	
 

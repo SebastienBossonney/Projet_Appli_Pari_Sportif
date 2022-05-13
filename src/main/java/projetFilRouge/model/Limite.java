@@ -18,14 +18,14 @@ public class Limite {
 	@Version
 	private int version;
 	@Column
-	private double valeur;
+	private Double valeur;
 	@Column
 	private Date duree;
 
 	@OneToOne(mappedBy = "limite")
 	private Utilisateur utilisateur;
 
-	public Limite(double valeur) {
+	public Limite(Double valeur) {
 		super();
 		this.valeur = valeur;
 	}
@@ -50,11 +50,11 @@ public class Limite {
 		this.version = version;
 	}
 
-	public double getValeur() {
+	public Double getValeur() {
 		return valeur;
 	}
 
-	public void setValeur(double valeur) {
+	public void setValeur(Double valeur) {
 		this.valeur = valeur;
 	}
 
@@ -73,5 +73,7 @@ public class Limite {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+
+
 
 }
