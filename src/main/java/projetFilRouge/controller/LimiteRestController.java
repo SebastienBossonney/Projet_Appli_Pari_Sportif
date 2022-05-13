@@ -1,5 +1,7 @@
 package projetFilRouge.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -46,12 +48,22 @@ public class LimiteRestController {
 	}
 
 	@GetMapping(value = "/utilisateurs/{utilisateurId}/limite")
-	public ResponseEntity<Limite> getUser(@PathVariable("utilisateurId") Long utilisateurId) {
+	public ResponseEntity<List<Limite>> getAllLimit(@PathVariable("utilisateurId") Long utilisateurId) {
+		
+		Utilisateur user = utilisateurService.getOne(utilisateurId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Employee not found with id: " + utilisateurId));
 
+		return new ResponseEntity<>(limiteService.getAllLimitByUserId(utilisateurId), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/utilisateurs/{utilisateurId}/limite/{limiteId}")
+	public ResponseEntity<Limite> getOneLimitByUser(@PathVariable("utilisateurId") Long utilisateurId) {
 		Limite limite = limiteService.getOneLimitByUser(utilisateurId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + utilisateurId));
 		return new ResponseEntity<>(limite, HttpStatus.OK);
 	}
+
 
 	@PutMapping(value = "/utilisateurs/{utilisateurId}/limite")
 	public ResponseEntity<Limite> editLimit(@PathVariable("id") Long userId, @Valid @RequestBody LimiteDto limiteDto) {

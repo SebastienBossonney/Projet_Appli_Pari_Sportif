@@ -141,7 +141,7 @@ class ProjetFilRougeApplicationTests {
 		assertEquals(500.0, limite.getValeur());
 		assertEquals(dateCreneau, limite.getDuree());
 
-		limite.setValeur(150);
+		limite.setValeur((double) 150);
 		try {
 			dateCreneau = sdfDate.parse("04/04/2021");
 		} catch (ParseException e) {

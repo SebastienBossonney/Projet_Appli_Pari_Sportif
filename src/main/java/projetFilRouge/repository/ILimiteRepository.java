@@ -1,5 +1,6 @@
 package projetFilRouge.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,11 @@ import projetFilRouge.model.Limite;
 @Repository
 public interface ILimiteRepository extends JpaRepository<Limite, Long> {
 
-	Optional<Limite> findByUtilisateurId(Long utilisateurId);
+
+	List<Limite> findAllByUtilisateurId(Long utilisateurId);
+
+	Optional<Limite> findLimitByUtilisateurId(Long utilisateurId);
+	
+	
 
 }

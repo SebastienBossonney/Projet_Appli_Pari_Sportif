@@ -1,5 +1,6 @@
 package projetFilRouge.service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projetFilRouge.model.Limite;
+import projetFilRouge.model.Utilisateur;
 import projetFilRouge.repository.ILimiteRepository;
 import projetFilRouge.repository.IUtilisateurRepository;
 
@@ -21,7 +23,7 @@ public class LimiteService {
 
 	// Retourne une limite(id) selon utilisateur(id)
 	public Optional<Limite> getOneLimitByUser(Long utilisateurId) {
-		return limiteRepository.findByUtilisateurId(utilisateurId);
+		return limiteRepository.findLimitByUtilisateurId(utilisateurId);
 	}
 
 	// Enregistre une limite selon son utilisateur(id)
@@ -47,5 +49,9 @@ public class LimiteService {
 			limiteRepository.delete(limiteToDelete);
 			return "DELETED";
 		});
+	}
+
+	public List<Limite> getAllLimitByUserId(Long utilisateurId) {
+		return limiteRepository.findAllByUtilisateurId(utilisateurId);
 	}
 }
