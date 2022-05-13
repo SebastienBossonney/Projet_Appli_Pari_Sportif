@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -37,17 +36,18 @@ public class UtilisateurRestController {
 		return new ResponseEntity<>(utilisateurService.findAll(), HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/utilisateurs/{id}")
-	public ResponseEntity<Utilisateur> updateMontant(@PathVariable("id") Long id,@RequestBody Utilisateur utilisateur) {
-
-		Utilisateur userToUpdate = utilisateurService.getOne(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
-
-		double newMontant= userToUpdate.getMontantDisponible()+utilisateur.getMontantDisponible();
-	userToUpdate.setMontantDisponible(newMontant);
-
-		return new ResponseEntity<>(utilisateurService.saveOrUpdate(userToUpdate), HttpStatus.OK);
-	}
+//	@PutMapping(value = "/utilisateurs/{id}")
+//	public ResponseEntity<Utilisateur> updateMontant(@PathVariable("id") Long id,
+//			@RequestBody Utilisateur utilisateur) {
+//
+//		Utilisateur userToUpdate = utilisateurService.getOne(id)
+//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
+//
+//		double newMontant = userToUpdate.getMontantDisponible() + utilisateur.getMontantDisponible();
+//		userToUpdate.setMontantDisponible(newMontant);
+//
+//		return new ResponseEntity<>(utilisateurService.saveOrUpdate(userToUpdate), HttpStatus.OK);
+//	}
 
 	@PostMapping(value = "/utilisateurs")
 	public ResponseEntity<Utilisateur> createUser(@Valid @RequestBody UtilisateurDto utilisateurDto) {
@@ -77,25 +77,25 @@ public class UtilisateurRestController {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
-//	@PutMapping(value = "/utilisateurs/{id}")
-//	public ResponseEntity<Utilisateur> editUser(@PathVariable("id") Long id,
-//			@Valid @RequestBody UtilisateurDto utilisateurDto) {
-//
-//		Utilisateur userToUpdate = utilisateurService.getOne(id)
-//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
-//
-//		userToUpdate.setIdentifiant(utilisateurDto.getIdentifiant());
-//		userToUpdate.setEmail(utilisateurDto.getEmail());
-//		userToUpdate.setMotDePasse(utilisateurDto.getMotDePasse());
-//		userToUpdate.setRole(utilisateurDto.getRole());
-//		userToUpdate.setProfil(utilisateurDto.getProfil());
-//		userToUpdate.setSalaire(utilisateurDto.getSalaire());
-//		userToUpdate.setMontantTotalGagne(utilisateurDto.getMontantTotalGagne());
-//		userToUpdate.setMontantTotalPerdu(utilisateurDto.getMontantTotalPerdu());
-//		userToUpdate.setMontantDisponible(utilisateurDto.getMontantDisponible());
-//
-//		return new ResponseEntity<>(userToUpdate, HttpStatus.OK);
-//	}
+	@PutMapping(value = "/utilisateurs/{id}")
+	public ResponseEntity<Utilisateur> editUser(@PathVariable("id") Long id,
+			@Valid @RequestBody UtilisateurDto utilisateurDto) {
+
+		Utilisateur userToUpdate = utilisateurService.getOne(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
+
+		userToUpdate.setIdentifiant(utilisateurDto.getIdentifiant());
+		userToUpdate.setEmail(utilisateurDto.getEmail());
+		userToUpdate.setMotDePasse(utilisateurDto.getMotDePasse());
+		userToUpdate.setRole(utilisateurDto.getRole());
+		userToUpdate.setProfil(utilisateurDto.getProfil());
+		userToUpdate.setSalaire(utilisateurDto.getSalaire());
+		userToUpdate.setMontantTotalGagne(utilisateurDto.getMontantTotalGagne());
+		userToUpdate.setMontantTotalPerdu(utilisateurDto.getMontantTotalPerdu());
+		userToUpdate.setMontantDisponible(utilisateurDto.getMontantDisponible());
+
+		return new ResponseEntity<>(userToUpdate, HttpStatus.OK);
+	}
 
 	@DeleteMapping(value = "/utilisateurs/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
@@ -111,7 +111,11 @@ public class UtilisateurRestController {
 	public ResponseEntity<Optional<Utilisateur>> findByIdentifiantAndPassword(
 			@PathVariable("identifiant") String identifiant, @PathVariable("password") String password) {
 		return new ResponseEntity<Optional<Utilisateur>>(
-				utilisateurService.findByIdentifiantAndPassword(identifiant, password), HttpStatus.FOUND);
+				utilisateurService.findByIdentifiantAndPassword(identifiant, password), HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/utilisateurs/{email}")
+	public ResponseEntity<Optional<Utilisateur>> findByIdentifiant(@PathVariable("email") String email) {
+		return new ResponseEntity<Optional<Utilisateur>>(utilisateurService.findByEmail(email), HttpStatus.OK);
+	}
 }
