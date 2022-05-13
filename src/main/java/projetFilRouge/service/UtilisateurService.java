@@ -48,6 +48,10 @@ public class UtilisateurService implements IService<Utilisateur> {
 		return utilisateurRepository.save(user);
 	}
 
+	public Optional<Utilisateur> findByEmail(String email) {
+		return utilisateurRepository.findByEmail(email);
+	}
+
 
 
 }
