@@ -51,5 +51,10 @@ public class CoteService {
 			return "DELETED";
 		});
 	}
+	
+	public Optional<Cote> getCoteById (Long coteId)
+	{
+		return this.coteRepository.findById(coteId);
+	}
 
 }

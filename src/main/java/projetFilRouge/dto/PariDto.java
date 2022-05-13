@@ -30,14 +30,10 @@ public class PariDto {
 	private double montantResultat;
 
 	private Long utilisateurId;
+	
+	private Long coteId;
 
-	public Long getUtilisateurId() {
-		return utilisateurId;
-	}
-
-	public void setUtilisateurId(Long utilisateurId) {
-		this.utilisateurId = utilisateurId;
-	}
+	
 
 	public Long getId() {
 		return id;
@@ -85,6 +81,22 @@ public class PariDto {
 
 	public void setMontantResultat(double montantResultat) {
 		this.montantResultat = montantResultat;
+	}
+	
+	public Long getCoteId() {
+		return coteId;
+	}
+
+	public void setCoteId(Long coteId) {
+		this.coteId = coteId;
+	}
+
+	public Long getUtilisateurId() {
+		return utilisateurId;
+	}
+
+	public void setUtilisateurId(Long utilisateurId) {
+		this.utilisateurId = utilisateurId;
 	}
 
 }

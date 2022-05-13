@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projetFilRouge.dto.PariDto;
+import projetFilRouge.model.Cote;
 import projetFilRouge.model.Pari;
+import projetFilRouge.repository.ICoteRepository;
 import projetFilRouge.repository.IPariRepository;
 import projetFilRouge.repository.IUtilisateurRepository;
 
@@ -19,6 +21,9 @@ public class PariService {
 
 	@Autowired
 	private IUtilisateurRepository utilisateurRepository;
+	
+	@Autowired
+	private ICoteRepository coteRepository;
 
 	public List<Pari> getPariByUtilisateur(Long utilisateurId) {
 
@@ -33,6 +38,8 @@ public class PariService {
 
 		return utilisateurRepository.findById(utilisateurId).map(utilisateur -> {
 			pari.setUtilisateur(utilisateur);
+			
+			//Cote cote = coteRepository.findById(pari.getCote());
 
 			Pari pariResult = pariRepository.save(pari);
 
@@ -40,7 +47,7 @@ public class PariService {
 		});
 	}
 
-	public Optional<Pari> editOnePari(Long pariId, Long utilisateurId, PariDto paridto) {
+	public Optional<Pari> editOnePari(Long pariId, Long utilisateurId, PariDto paridto, Cote cote) {
 		return pariRepository.findByIdAndUtilisateurId(pariId, utilisateurId).map(pariToUpdate -> {
 
 			pariToUpdate.setMontantJoue(paridto.getMontantJoue());
@@ -48,7 +55,7 @@ public class PariService {
 			pariToUpdate.setHeurePari(paridto.getHeurePari());
 			pariToUpdate.setMontantResultat(paridto.getMontantResultat());
 			pariToUpdate.setResultat(paridto.getResultat());
-
+            pariToUpdate.setCote(cote);
 			pariToUpdate = pariRepository.save(pariToUpdate);
 			// matchToUpdate.setEquipeMatchs(equipeMatchService.updateEquipesToMatch(matchToUpdate,matchdto.getEquipes()));
 

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import projetFilRouge.dto.PariDto;
-
+import projetFilRouge.model.Cote;
 import projetFilRouge.model.Pari;
-
+import projetFilRouge.service.CoteService;
 import projetFilRouge.service.PariService;
 import projetFilRouge.service.UtilisateurService;
 
@@ -29,6 +29,9 @@ public class PariRestController {
 
 	@Autowired
 	private PariService pariService;
+	
+	@Autowired
+	private CoteService coteService;
 
 	@Autowired
 	private UtilisateurService utilisateurService;
@@ -49,6 +52,7 @@ public class PariRestController {
 			pariDto.setHeurePari(p.getHeurePari());
 			pariDto.setMontantResultat(p.getMontantResultat());
 			pariDto.setResultat(p.getResultat());
+			pariDto.setCoteId(p.getCote().getId());
 			pariDto.setUtilisateurId(utilisateurId);
 
 			parisDto.add(pariDto);
@@ -76,6 +80,7 @@ public class PariRestController {
 		pariDto.setHeurePari(pari.getHeurePari());
 		pariDto.setMontantResultat(pari.getMontantResultat());
 		pariDto.setResultat(pari.getResultat());
+		pariDto.setCoteId(pari.getCote().getId());
 		pariDto.setUtilisateurId(utilisateurId);
 
 		return new ResponseEntity<>(pariDto, HttpStatus.OK);
@@ -86,12 +91,16 @@ public class PariRestController {
 			@RequestBody PariDto pariDto) {
 
 		Pari pari = new Pari();
+		Cote cote = coteService.getCoteById(pariDto.getCoteId()).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cote non trouvée :" + pariDto.getCoteId()));
 
 		pari.setMontantJoue(pariDto.getMontantJoue());
 		pari.setDatePari(pariDto.getDatePari());
 		pari.setHeurePari(pariDto.getHeurePari());
 		pari.setMontantResultat(pariDto.getMontantResultat());
 		pari.setResultat(pariDto.getResultat());
+		
+		pari.setCote(cote);
 
 		pari = pariService.savePariByUtilisateur(utilisateurId, pari).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utilisateur non trouvée :" + utilisateurId));
@@ -107,8 +116,11 @@ public class PariRestController {
 
 		utilisateurService.getOne(utilisateurId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 				"Utilisateur" + " not found with id: " + utilisateurId));
+		
+		Cote cote = coteService.getCoteById(pariDto.getCoteId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,
+				"Cote" + " not found with id: " + pariDto.getCoteId()));
 
-		pariService.editOnePari(pariId, utilisateurId, pariDto).orElseThrow(
+		pariService.editOnePari(pariId, utilisateurId, pariDto, cote).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pari " + "not found with id: " + pariId));
 
 		pariDto.setId(pariId);
