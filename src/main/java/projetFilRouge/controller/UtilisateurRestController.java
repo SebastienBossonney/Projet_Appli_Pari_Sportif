@@ -114,8 +114,8 @@ public class UtilisateurRestController {
 				utilisateurService.findByIdentifiantAndPassword(identifiant, password), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/utilisateurs/{email}")
-	public ResponseEntity<Optional<Utilisateur>> findByIdentifiant(@PathVariable("email") String email) {
+	@GetMapping(value = "/utilisateurs/motDePasseOublie/{email}")
+	public ResponseEntity<Optional<Utilisateur>> findByEmail(@PathVariable("email") String email) {
 		return new ResponseEntity<Optional<Utilisateur>>(utilisateurService.findByEmail(email), HttpStatus.OK);
 	}
 }
