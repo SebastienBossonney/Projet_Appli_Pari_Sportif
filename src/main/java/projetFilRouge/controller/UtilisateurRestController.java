@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,6 +78,7 @@ public class UtilisateurRestController {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
+	@Transactional
 	@PutMapping(value = "/utilisateurs/{id}")
 	public ResponseEntity<Utilisateur> editUser(@PathVariable("id") Long id,
 			@Valid @RequestBody UtilisateurDto utilisateurDto) {
@@ -85,7 +87,7 @@ public class UtilisateurRestController {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
 
 		userToUpdate.setIdentifiant(utilisateurDto.getIdentifiant());
-		userToUpdate.setEmail(utilisateurDto.getEmail());
+	 	userToUpdate.setEmail(utilisateurDto.getEmail());
 		userToUpdate.setMotDePasse(utilisateurDto.getMotDePasse());
 		userToUpdate.setRole(utilisateurDto.getRole());
 		userToUpdate.setProfil(utilisateurDto.getProfil());
