@@ -10,7 +10,7 @@ import projetFilRouge.model.Role;
 public class UtilisateurDto {
 
 	private Long id;
-	
+
 	@NotEmpty()
 	@Size(min = 2, max = 30, message = "Name should have at least 2 characters")
 	private String identifiant;
@@ -24,10 +24,10 @@ public class UtilisateurDto {
 	private String motDePasse;
 
 	@NotNull()
-	private Role role=Role.PARIEUR;
+	private Role role = Role.PARIEUR;
 	@NotNull()
 	private Profil profil;
-	
+
 	private double salaire;
 	private double montantDisponible;
 	private double montantTotalGagne;
@@ -58,7 +58,6 @@ public class UtilisateurDto {
 		this.identifiant = identifiant;
 	}
 
-	
 	public Long getId() {
 		return id;
 	}
