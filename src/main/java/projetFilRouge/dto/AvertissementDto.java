@@ -8,6 +8,8 @@ public class AvertissementDto {
 	
 	@Size(min = 2, max = 50, message = "Avertissement should have at least 2 characters")
 	private String description;
+	
+	private Long utilisateurId;
 
 	public AvertissementDto() {
 		super();
@@ -28,5 +30,14 @@ public class AvertissementDto {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public Long getUtilisateurId() {
+		return utilisateurId;
+	}
+
+	public void setUtilisateurId(Long utilisateurId) {
+		this.utilisateurId = utilisateurId;
+	}
+	
 
 }

@@ -21,7 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import projetFilRouge.dto.UtilisateurDto;
 import projetFilRouge.model.Utilisateur;
-import projetFilRouge.service.LimiteService;
 import projetFilRouge.service.UtilisateurService;
 
 @RestController
@@ -30,7 +29,6 @@ public class UtilisateurRestController {
 
 	@Autowired
 	private UtilisateurService utilisateurService;
-	private LimiteService limiteService;
 
 	@GetMapping(value = "/utilisateurs")
 	public ResponseEntity<List<Utilisateur>> getUsers() {

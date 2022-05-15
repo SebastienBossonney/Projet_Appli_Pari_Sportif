@@ -15,4 +15,6 @@ public interface IAvertissementRepository extends JpaRepository<Avertissement, L
 
 	Optional<Avertissement> findByIdAndUtilisateurId(Long avertissementId, Long utilisateurId);
 
+	List<Avertissement> findAllByUtilisateurId(Long utilisateurId);
+
 }

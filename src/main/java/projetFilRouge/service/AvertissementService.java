@@ -60,4 +60,9 @@ public class AvertissementService{
 		});
 	}
 
+	public List<Avertissement> findAll(Long utilisateurId) {
+		return avertissementRepository.findAllByUtilisateurId(utilisateurId);
+		
+	}
+
 }

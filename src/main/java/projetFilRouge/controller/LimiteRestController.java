@@ -40,8 +40,7 @@ public class LimiteRestController {
 
 		limitToSave.setValeur(limiteDto.getValeur());
 		limitToSave.setDuree(limiteDto.getDuree());
-
-		limitToSave.setUtilisateur(user);
+//		limitToSave.setUtilisateur(user);
 		limiteService.saveLimitByUser(utilisateurId, limitToSave);
 
 		return new ResponseEntity<>(limitToSave, HttpStatus.CREATED);

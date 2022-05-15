@@ -1,9 +1,13 @@
 package projetFilRouge.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import projetFilRouge.model.Avertissement;
+import projetFilRouge.model.Equipe;
 import projetFilRouge.model.Profil;
 import projetFilRouge.model.Role;
 
@@ -32,7 +36,10 @@ public class UtilisateurDto {
 	private double montantDisponible;
 	private double montantTotalGagne;
 	private double montantTotalPerdu;
+	
 
+	private List<Avertissement> avertissement;
+	
 	public UtilisateurDto() {
 		super();
 	}
@@ -129,5 +136,15 @@ public class UtilisateurDto {
 	public double getMontantDisponible() {
 		return montantDisponible;
 	}
+
+	public List<Avertissement> getAvertissement() {
+		return avertissement;
+	}
+
+	public void setAvertissement(List<Avertissement> avertissement) {
+		this.avertissement = avertissement;
+	}
+	
+	
 
 }
