@@ -2,22 +2,36 @@ package projetFilRouge.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class LimiteDto {
 
 	private Long id;
 	
 	private Double valeur;
 
+	@JsonFormat(pattern = "dd/MM/yyyy", timezone = "Europe/Paris")
 	private Date duree;
+	
+	private Long utilisateurId;
 			
 	public LimiteDto() {
 		super();
 	}
 
-	public LimiteDto(Double valeur, Date duree) {
+	public LimiteDto(Double valeur, Date duree, Long UtilisateurId) {
 		super();
 		this.valeur = valeur;
 		this.duree = duree;
+		this.utilisateurId = UtilisateurId;
+	}
+
+	public Long getUtilisateurId() {
+		return utilisateurId;
+	}
+
+	public void setUtilisateurId(Long utilisateurId) {
+		this.utilisateurId = utilisateurId;
 	}
 
 	public double getValeur() {

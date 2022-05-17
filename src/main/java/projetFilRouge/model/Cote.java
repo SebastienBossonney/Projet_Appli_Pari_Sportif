@@ -28,8 +28,9 @@ public class Cote {
 	@Column(name = "statut", length = 20)
 	private ChoixCote statut;
 
-	@OneToOne(mappedBy = "cote")
-	private Joueur joueur = null;
+//	@OneToOne(mappedBy = "cote")
+//	private Joueur joueur = null;
+	
 	@OneToOne(mappedBy = "cote")
 	@JoinColumn(name = "cote_id")
 	private Pari pari;
@@ -82,13 +83,13 @@ public class Cote {
 		this.statut = statut;
 	}
 
-	public Joueur getJoueur() {
-		return joueur;
-	}
-
-	public void setJoueur(Joueur joueur) {
-		this.joueur = joueur;
-	}
+//	public Joueur getJoueur() {
+//		return joueur;
+//	}
+//
+//	public void setJoueur(Joueur joueur) {
+//		this.joueur = joueur;
+//	}
 
 	public Pari getPari() {
 		return pari;

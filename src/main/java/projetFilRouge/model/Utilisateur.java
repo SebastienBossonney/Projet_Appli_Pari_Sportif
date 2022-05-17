@@ -45,9 +45,9 @@ public class Utilisateur {
 	@Column
 	private double montantDisponible;
 
-	@OneToOne
-	@JoinColumn(name = "utilisateur_limite")
-	private Limite limite = null;
+	@OneToOne(mappedBy = "utilisateur")
+	@JoinColumn(name = "utilisateur_id")
+	private Limite limite;
 
 	@OneToMany(mappedBy = "utilisateur")
 	private List<Avertissement> avertissements = new ArrayList<Avertissement>();

@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import projetFilRouge.model.Avertissement;
 import projetFilRouge.model.Equipe;
+import projetFilRouge.model.Limite;
 import projetFilRouge.model.Profil;
 import projetFilRouge.model.Role;
 
@@ -37,6 +38,15 @@ public class UtilisateurDto {
 	private double montantTotalGagne;
 	private double montantTotalPerdu;
 	
+	private Limite limite;
+
+	public Limite getLimite() {
+		return limite;
+	}
+
+	public void setLimite(Limite limite) {
+		this.limite = limite;
+	}
 
 	private List<Avertissement> avertissement;
 	
@@ -45,7 +55,8 @@ public class UtilisateurDto {
 	}
 
 	public UtilisateurDto(String identifiant, String email, String motDePasse, Role role, Profil profil,
-			double montantTotalGagne, double montantTotalPerdu, double salaire, double montantDisponible) {
+			double montantTotalGagne, double montantTotalPerdu, double salaire, double montantDisponible, 
+			Limite limite, List<Avertissement> listeAvertissement) {
 		super();
 		this.identifiant = identifiant;
 		this.email = email;
@@ -55,6 +66,8 @@ public class UtilisateurDto {
 		this.montantTotalGagne = montantTotalGagne;
 		this.montantTotalPerdu = montantTotalPerdu;
 		this.montantDisponible = montantDisponible;
+		this.limite = limite;
+		this.avertissement = listeAvertissement;
 	}
 
 	public String getIdentifiant() {

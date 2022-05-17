@@ -13,7 +13,7 @@ public class MatchDto {
 
 	private Long id;
 	@NotEmpty
-	@JsonFormat(/* shape = JsonFormat.Shape.STRING, */ pattern = "dd/MM/yyyy")
+	@JsonFormat(/* shape = JsonFormat.Shape.STRING, */ pattern = "dd/MM/yyyy", timezone = "Europe/Paris")
 	private Date dateMatch;
 	@NotEmpty
 	@JsonFormat(pattern = "HH:mm", timezone = "Europe/Paris")
