@@ -1,12 +1,15 @@
 package projetFilRouge.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import projetFilRouge.dto.CoteDto;
 import projetFilRouge.model.Cote;
+import projetFilRouge.model.Match;
 import projetFilRouge.repository.ICoteRepository;
 import projetFilRouge.repository.IMatchRepository;
 
@@ -36,6 +39,22 @@ public class CoteService {
 			return coteRepository.save(cote);
 		});
 	}
+	
+	public Optional<List<Cote>> saveCoteListByMatch(Long matchId, List<Cote> coteList) {
+
+		List<Cote> listCote = new ArrayList<Cote>();
+		
+		return matchRepository.findById(matchId).map(match -> {
+			
+			for (Cote c: coteList) {
+				c.setMatch(match);
+			    Cote cote = coteRepository.save(c);
+			    listCote.add(cote);
+				}
+			return listCote;
+		});
+	}
+
 
 	public Optional<Cote> editOneCoteByMacth(Long coteId, Long matchId, Cote cote) {
 		return coteRepository.findByIdAndMatchId(coteId, matchId).map(coteToUpdate -> {
@@ -57,4 +76,5 @@ public class CoteService {
 		return this.coteRepository.findById(coteId);
 	}
 
+	
 }
