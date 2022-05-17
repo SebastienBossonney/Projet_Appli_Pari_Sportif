@@ -16,10 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import projetFilRouge.dto.MatchDto;
 import projetFilRouge.dto.PariDto;
 import projetFilRouge.model.Cote;
+import projetFilRouge.model.Equipe;
+import projetFilRouge.model.Match;
 import projetFilRouge.model.Pari;
 import projetFilRouge.service.CoteService;
+import projetFilRouge.service.EquipeMatchService;
+import projetFilRouge.service.MatchService;
 import projetFilRouge.service.PariService;
 import projetFilRouge.service.UtilisateurService;
 
@@ -36,6 +41,12 @@ public class PariRestController {
 	@Autowired
 	private UtilisateurService utilisateurService;
 	
+	@Autowired
+	private MatchService matchService;
+	
+	@Autowired
+	private EquipeMatchService equipeMatchService;
+	
 	@GetMapping(value = "utilisateurs/{utilisateurId}/paris")
 
 	public ResponseEntity<List<PariDto>> getParis(@PathVariable("utilisateurId") Long utilisateurId) {
@@ -43,6 +54,8 @@ public class PariRestController {
 		List<Pari> pari = pariService.getPariByUtilisateur(utilisateurId);
 
 		List<PariDto> parisDto = new ArrayList<PariDto>();
+		
+//		List<MatchDto> listMatchDto = new ArrayList<MatchDto>();
 
 		for (Pari p : pari) {
 			PariDto pariDto = new PariDto();
@@ -54,6 +67,22 @@ public class PariRestController {
 			pariDto.setResultat(p.getResultat());
 			pariDto.setCoteId(p.getCote().getId());
 			pariDto.setUtilisateurId(utilisateurId);
+
+			Match match = p.getCote().getMatch();
+			MatchDto matchDto = new MatchDto();
+			matchDto.setId(match.getId());
+			matchDto.setDateMatch(match.getDateMatch());
+			matchDto.setHeureMatch(match.getHeureMatch());
+			matchDto.setLieu(match.getLieu());
+			matchDto.setVille(match.getVille());
+			matchDto.setPays(match.getPays());
+
+			List<Equipe> equipes = equipeMatchService.getAllEquipesByMatchId(match.getId());
+
+			matchDto.setEquipes(equipes);
+			matchDto.setSportId(match.getSport().getId());
+			
+			pariDto.setMatchDto(matchDto);
 
 			parisDto.add(pariDto);
 
@@ -94,10 +123,12 @@ public class PariRestController {
 		Cote cote = coteService.getCoteById(pariDto.getCoteId()).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cote non trouvée :" + pariDto.getCoteId()));
 
+		
 		pari.setMontantJoue(pariDto.getMontantJoue());
 		pari.setDatePari(pariDto.getDatePari());
 		pari.setHeurePari(pariDto.getHeurePari());
 		pari.setMontantResultat(pariDto.getMontantResultat());
+		
 		pari.setResultat(pariDto.getResultat());
 		
 		pari.setCote(cote);

@@ -38,37 +38,37 @@ public class UtilisateurDto {
 	private double montantTotalGagne;
 	private double montantTotalPerdu;
 	
-	private Limite limite;
+	private LimiteDto limite;
 
-	public Limite getLimite() {
+	public LimiteDto getLimite() {
 		return limite;
 	}
 
-	public void setLimite(Limite limite) {
+	public void setLimite(LimiteDto limite) {
 		this.limite = limite;
 	}
 
-	private List<Avertissement> avertissement;
+	private List<AvertissementDto> avertissement;
 	
 	public UtilisateurDto() {
 		super();
 	}
 
-	public UtilisateurDto(String identifiant, String email, String motDePasse, Role role, Profil profil,
-			double montantTotalGagne, double montantTotalPerdu, double salaire, double montantDisponible, 
-			Limite limite, List<Avertissement> listeAvertissement) {
-		super();
-		this.identifiant = identifiant;
-		this.email = email;
-		this.motDePasse = motDePasse;
-		this.role = role;
-		this.profil = profil;
-		this.montantTotalGagne = montantTotalGagne;
-		this.montantTotalPerdu = montantTotalPerdu;
-		this.montantDisponible = montantDisponible;
-		this.limite = limite;
-		this.avertissement = listeAvertissement;
-	}
+//	public UtilisateurDto(String identifiant, String email, String motDePasse, Role role, Profil profil,
+//			double montantTotalGagne, double montantTotalPerdu, double salaire, double montantDisponible, 
+//			LimiteDto limite, List<AvertissementDto> listeAvertissement) {
+//		super();
+//		this.identifiant = identifiant;
+//		this.email = email;
+//		this.motDePasse = motDePasse;
+//		this.role = role;
+//		this.profil = profil;
+//		this.montantTotalGagne = montantTotalGagne;
+//		this.montantTotalPerdu = montantTotalPerdu;
+//		this.montantDisponible = montantDisponible;
+//		this.limite = limite;
+//		this.avertissement = listeAvertissement;
+//	}
 
 	public String getIdentifiant() {
 		return identifiant;
@@ -150,11 +150,11 @@ public class UtilisateurDto {
 		return montantDisponible;
 	}
 
-	public List<Avertissement> getAvertissement() {
+	public List<AvertissementDto> getAvertissement() {
 		return avertissement;
 	}
 
-	public void setAvertissement(List<Avertissement> avertissement) {
+	public void setAvertissement(List<AvertissementDto> avertissement) {
 		this.avertissement = avertissement;
 	}
 	
