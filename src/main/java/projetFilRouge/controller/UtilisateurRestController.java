@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import projetFilRouge.dto.AvertissementDto;
+import projetFilRouge.dto.LimiteDto;
 import projetFilRouge.dto.UtilisateurDto;
 import projetFilRouge.model.Avertissement;
 import projetFilRouge.model.Limite;
@@ -40,13 +42,27 @@ public class UtilisateurRestController {
 		
 		List<Utilisateur> listUtilisateurs = utilisateurService.findAll();
 		List<UtilisateurDto> listDtoU = new ArrayList<UtilisateurDto>();
+		//List<AvertissementDto> listAvertissementDtoU = new ArrayList<AvertissementDto>();
 		
 		for(Utilisateur u : listUtilisateurs)
 		{
-			UtilisateurDto  uDto = new UtilisateurDto(u.getIdentifiant(), u.getEmail(), u.getMotDePasse(), u.getRole(),
-			                                          u.getProfil(), u.getMontantTotalGagne() , u.getMontantTotalPerdu(),
-			                                          u.getSalaire(), u.getMontantDisponible(), u.getLimite(), u.getAvertissements());
-			                uDto.setId(u.getId());
+			UtilisateurDto  uDto = new UtilisateurDto();
+			uDto.setIdentifiant(u.getIdentifiant());
+			uDto.setEmail(u.getEmail());
+			uDto.setMotDePasse(u.getMotDePasse()); 
+			uDto.setRole(u.getRole());  
+			uDto.setProfil(u.getProfil());
+			uDto.setMontantTotalGagne(u.getMontantTotalGagne());
+			uDto.setMontantTotalPerdu(u.getMontantTotalPerdu());
+			uDto.setSalaire(u.getSalaire());
+			uDto.setMontantDisponible(u.getMontantDisponible());
+			uDto.setId(u.getId());
+			
+			if (u.getLimite()!=null) {
+            LimiteDto limiteDto = new LimiteDto(u.getLimite().getValeur(), u.getLimite().getDuree(),u.getId());
+		     limiteDto.setId(u.getLimite().getId());                                        
+			uDto.setLimite(limiteDto);                                          
+			}
 			listDtoU.add(uDto);
 				
 		}
@@ -95,13 +111,28 @@ public class UtilisateurRestController {
 		Utilisateur user = utilisateurService.getOne(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
 		
-		UtilisateurDto utilisateurDto = new UtilisateurDto(user.getIdentifiant(), user.getEmail(), user.getMotDePasse(), user.getRole(),
-				user.getProfil(), user.getMontantTotalGagne() , user.getMontantTotalPerdu(),
-				user.getSalaire(), user.getMontantDisponible(), user.getLimite(), user.getAvertissements());
+		//List<AvertissementDto> listAvertissementDtoU = new ArrayList<AvertissementDto>();
 		
-		utilisateurDto.setId(user.getId());
+		UtilisateurDto  uDto = new UtilisateurDto();
+		uDto.setIdentifiant(user.getIdentifiant());
+		uDto.setEmail(user.getEmail());
+		uDto.setMotDePasse(user.getMotDePasse()); 
+		uDto.setRole(user.getRole());  
+		uDto.setProfil(user.getProfil());
+		uDto.setMontantTotalGagne(user.getMontantTotalGagne());
+		uDto.setMontantTotalPerdu(user.getMontantTotalPerdu());
+		uDto.setSalaire(user.getSalaire());
+		uDto.setMontantDisponible(user.getMontantDisponible());
+		uDto.setId(user.getId());
 		
-		return new ResponseEntity<>(utilisateurDto, HttpStatus.OK);
+		if (user.getLimite()!=null) {
+        LimiteDto limiteDto = new LimiteDto(user.getLimite().getValeur(), user.getLimite().getDuree(),user.getId());
+	     limiteDto.setId(user.getLimite().getId());                                        
+		uDto.setLimite(limiteDto);  
+		}
+		uDto.setId(user.getId());
+		
+		return new ResponseEntity<>(uDto, HttpStatus.OK);
 	}
 
 	@Transactional
@@ -144,12 +175,28 @@ public class UtilisateurRestController {
 		Utilisateur user = utilisateurService.findByIdentifiantAndPassword(identifiant, password)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with identifiant" + identifiant + "and password " + password));
 		
-        UtilisateurDto userDto = new UtilisateurDto(user.getIdentifiant(), user.getEmail(), user.getMotDePasse(), user.getRole(),
-				user.getProfil(), user.getMontantTotalGagne() , user.getMontantTotalPerdu(),
-				user.getSalaire(), user.getMontantDisponible(), user.getLimite(), user.getAvertissements());
-        userDto.setId(user.getId());
+		UtilisateurDto  uDto = new UtilisateurDto();
+		uDto.setIdentifiant(user.getIdentifiant());
+		uDto.setEmail(user.getEmail());
+		uDto.setMotDePasse(user.getMotDePasse()); 
+		uDto.setRole(user.getRole());  
+		uDto.setProfil(user.getProfil());
+		uDto.setMontantTotalGagne(user.getMontantTotalGagne());
+		uDto.setMontantTotalPerdu(user.getMontantTotalPerdu());
+		uDto.setSalaire(user.getSalaire());
+		uDto.setMontantDisponible(user.getMontantDisponible());
+		uDto.setId(user.getId());
 		
-		return new ResponseEntity<UtilisateurDto>(userDto, HttpStatus.OK);
+		if (user.getLimite()!=null) {
+	        LimiteDto limiteDto = new LimiteDto(user.getLimite().getValeur(), user.getLimite().getDuree(),user.getId());
+		     limiteDto.setId(user.getLimite().getId());                                        
+			uDto.setLimite(limiteDto);  
+			}
+        
+		
+		uDto.setId(user.getId());
+		
+		return new ResponseEntity<UtilisateurDto>(uDto, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/utilisateurs/motDePasseOublie/{email}")
@@ -158,11 +205,26 @@ public class UtilisateurRestController {
 		Utilisateur user = utilisateurService.findByEmail(email)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with email" + email));
 		
-		UtilisateurDto userDto = new UtilisateurDto(user.getIdentifiant(), user.getEmail(), user.getMotDePasse(), user.getRole(),
-				user.getProfil(), user.getMontantTotalGagne() , user.getMontantTotalPerdu(),
-				user.getSalaire(), user.getMontantDisponible(), user.getLimite(), user.getAvertissements());
-        userDto.setId(user.getId());
+		UtilisateurDto  uDto = new UtilisateurDto();
+		uDto.setIdentifiant(user.getIdentifiant());
+		uDto.setEmail(user.getEmail());
+		uDto.setMotDePasse(user.getMotDePasse()); 
+		uDto.setRole(user.getRole());  
+		uDto.setProfil(user.getProfil());
+		uDto.setMontantTotalGagne(user.getMontantTotalGagne());
+		uDto.setMontantTotalPerdu(user.getMontantTotalPerdu());
+		uDto.setSalaire(user.getSalaire());
+		uDto.setMontantDisponible(user.getMontantDisponible());
+		uDto.setId(user.getId());
+		
+		if (user.getLimite()!=null) {
+	        LimiteDto limiteDto = new LimiteDto(user.getLimite().getValeur(), user.getLimite().getDuree(),user.getId());
+		     limiteDto.setId(user.getLimite().getId());                                        
+			uDto.setLimite(limiteDto);  
+			}
+      
+		uDto.setId(user.getId());
         
-		return new ResponseEntity<UtilisateurDto>(userDto, HttpStatus.OK);
+		return new ResponseEntity<UtilisateurDto>(uDto, HttpStatus.OK);
 	}
 }

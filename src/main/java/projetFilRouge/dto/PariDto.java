@@ -33,7 +33,15 @@ public class PariDto {
 	
 	private Long coteId;
 
-	
+	private MatchDto matchDto;
+
+	public MatchDto getMatchDto() {
+		return matchDto;
+	}
+
+	public void setMatchDto(MatchDto matchDto) {
+		this.matchDto = matchDto;
+	}
 
 	public Long getId() {
 		return id;
