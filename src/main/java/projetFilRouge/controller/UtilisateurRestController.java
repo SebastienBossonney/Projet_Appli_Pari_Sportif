@@ -1,5 +1,6 @@
 package projetFilRouge.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import projetFilRouge.dto.UtilisateurDto;
+import projetFilRouge.model.Avertissement;
+import projetFilRouge.model.Limite;
+import projetFilRouge.model.Profil;
+import projetFilRouge.model.Role;
 import projetFilRouge.model.Utilisateur;
 import projetFilRouge.service.UtilisateurService;
 
@@ -31,8 +36,22 @@ public class UtilisateurRestController {
 	private UtilisateurService utilisateurService;
 
 	@GetMapping(value = "/utilisateurs")
-	public ResponseEntity<List<Utilisateur>> getUsers() {
-		return new ResponseEntity<>(utilisateurService.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<UtilisateurDto>> getUsers() {
+		
+		List<Utilisateur> listUtilisateurs = utilisateurService.findAll();
+		List<UtilisateurDto> listDtoU = new ArrayList<UtilisateurDto>();
+		
+		for(Utilisateur u : listUtilisateurs)
+		{
+			UtilisateurDto  uDto = new UtilisateurDto(u.getIdentifiant(), u.getEmail(), u.getMotDePasse(), u.getRole(),
+			                                          u.getProfil(), u.getMontantTotalGagne() , u.getMontantTotalPerdu(),
+			                                          u.getSalaire(), u.getMontantDisponible(), u.getLimite(), u.getAvertissements());
+			                uDto.setId(u.getId());
+			listDtoU.add(uDto);
+				
+		}
+		
+		return new ResponseEntity<>(listDtoU, HttpStatus.OK);
 	}
 
 //	@PutMapping(value = "/utilisateurs/{id}")
@@ -49,7 +68,7 @@ public class UtilisateurRestController {
 //	}
 
 	@PostMapping(value = "/utilisateurs")
-	public ResponseEntity<Utilisateur> createUser(@Valid @RequestBody UtilisateurDto utilisateurDto) {
+	public ResponseEntity<UtilisateurDto> createUser(@Valid @RequestBody UtilisateurDto utilisateurDto) {
 
 		Utilisateur userToSave = new Utilisateur();
 
@@ -64,21 +83,30 @@ public class UtilisateurRestController {
 		userToSave.setMontantDisponible(utilisateurDto.getMontantDisponible());
 
 		userToSave = utilisateurService.saveOrUpdate(userToSave);
-
-		return new ResponseEntity<>(userToSave, HttpStatus.CREATED);
+		
+		utilisateurDto.setId(userToSave.getId());
+		
+		return new ResponseEntity<>(utilisateurDto, HttpStatus.CREATED);
 	}
 
 	@GetMapping(value = "/utilisateurs/{id}")
-	public ResponseEntity<Utilisateur> getUser(@PathVariable("id") Long id) {
+	public ResponseEntity<UtilisateurDto> getUser(@PathVariable("id") Long id) {
 
 		Utilisateur user = utilisateurService.getOne(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
-		return new ResponseEntity<>(user, HttpStatus.OK);
+		
+		UtilisateurDto utilisateurDto = new UtilisateurDto(user.getIdentifiant(), user.getEmail(), user.getMotDePasse(), user.getRole(),
+				user.getProfil(), user.getMontantTotalGagne() , user.getMontantTotalPerdu(),
+				user.getSalaire(), user.getMontantDisponible(), user.getLimite(), user.getAvertissements());
+		
+		utilisateurDto.setId(user.getId());
+		
+		return new ResponseEntity<>(utilisateurDto, HttpStatus.OK);
 	}
 
 	@Transactional
 	@PutMapping(value = "/utilisateurs/{id}")
-	public ResponseEntity<Utilisateur> editUser(@PathVariable("id") Long id,
+	public ResponseEntity<UtilisateurDto> editUser(@PathVariable("id") Long id,
 			@Valid @RequestBody UtilisateurDto utilisateurDto) {
 
 		Utilisateur userToUpdate = utilisateurService.getOne(id)
@@ -93,8 +121,10 @@ public class UtilisateurRestController {
 		userToUpdate.setMontantTotalGagne(utilisateurDto.getMontantTotalGagne());
 		userToUpdate.setMontantTotalPerdu(utilisateurDto.getMontantTotalPerdu());
 		userToUpdate.setMontantDisponible(utilisateurDto.getMontantDisponible());
-
-		return new ResponseEntity<>(userToUpdate, HttpStatus.OK);
+		
+		utilisateurDto.setId(id);
+		
+		return new ResponseEntity<>(utilisateurDto, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/utilisateurs/{id}")
@@ -108,14 +138,31 @@ public class UtilisateurRestController {
 	}
 
 	@GetMapping(value = "/utilisateurs/{identifiant}/{password}")
-	public ResponseEntity<Optional<Utilisateur>> findByIdentifiantAndPassword(
-			@PathVariable("identifiant") String identifiant, @PathVariable("password") String password) {
-		return new ResponseEntity<Optional<Utilisateur>>(
-				utilisateurService.findByIdentifiantAndPassword(identifiant, password), HttpStatus.OK);
+	public ResponseEntity<UtilisateurDto> findByIdentifiantAndPassword(
+			@PathVariable("identifiant") String identifiant, @PathVariable("password") String password) 
+	{
+		Utilisateur user = utilisateurService.findByIdentifiantAndPassword(identifiant, password)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with identifiant" + identifiant + "and password " + password));
+		
+        UtilisateurDto userDto = new UtilisateurDto(user.getIdentifiant(), user.getEmail(), user.getMotDePasse(), user.getRole(),
+				user.getProfil(), user.getMontantTotalGagne() , user.getMontantTotalPerdu(),
+				user.getSalaire(), user.getMontantDisponible(), user.getLimite(), user.getAvertissements());
+        userDto.setId(user.getId());
+		
+		return new ResponseEntity<UtilisateurDto>(userDto, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/utilisateurs/motDePasseOublie/{email}")
-	public ResponseEntity<Optional<Utilisateur>> findByEmail(@PathVariable("email") String email) {
-		return new ResponseEntity<Optional<Utilisateur>>(utilisateurService.findByEmail(email), HttpStatus.OK);
+	public ResponseEntity<UtilisateurDto> findByEmail(@PathVariable("email") String email) {
+		
+		Utilisateur user = utilisateurService.findByEmail(email)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with email" + email));
+		
+		UtilisateurDto userDto = new UtilisateurDto(user.getIdentifiant(), user.getEmail(), user.getMotDePasse(), user.getRole(),
+				user.getProfil(), user.getMontantTotalGagne() , user.getMontantTotalPerdu(),
+				user.getSalaire(), user.getMontantDisponible(), user.getLimite(), user.getAvertissements());
+        userDto.setId(user.getId());
+        
+		return new ResponseEntity<UtilisateurDto>(userDto, HttpStatus.OK);
 	}
 }

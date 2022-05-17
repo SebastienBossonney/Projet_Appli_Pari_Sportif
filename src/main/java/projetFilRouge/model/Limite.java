@@ -7,8 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Limite {
@@ -19,10 +24,14 @@ public class Limite {
 	private int version;
 	@Column
 	private Double valeur;
+	
+	@Temporal(TemporalType.DATE)
 	@Column
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date duree;
 
-	@OneToOne(mappedBy = "limite")
+	@OneToOne
+	@JoinColumn(name = "utilisateur_id")
 	private Utilisateur utilisateur;
 
 	public Limite(Double valeur) {

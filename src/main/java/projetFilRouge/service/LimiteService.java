@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projetFilRouge.model.Limite;
+import projetFilRouge.model.Pari;
 import projetFilRouge.model.Utilisateur;
 import projetFilRouge.repository.ILimiteRepository;
 import projetFilRouge.repository.IUtilisateurRepository;
@@ -31,6 +32,8 @@ public class LimiteService {
 		return utilisateurRepository.findById(utilisateurId).map(utilisateur -> {
 			limite.setUtilisateur(utilisateur);
 			return limiteRepository.save(limite);
+	
+			
 		});
 	}
 
@@ -53,5 +56,11 @@ public class LimiteService {
 
 	public List<Limite> getAllLimitByUserId(Long utilisateurId) {
 		return limiteRepository.findAllByUtilisateurId(utilisateurId);
+	}
+
+	public Optional<Limite> getLimiteById(Long limiteId) {
+
+       return limiteRepository.findById(limiteId);
+		
 	}
 }

@@ -25,6 +25,7 @@ public class UtilisateurService implements IService<Utilisateur> {
 
 	@Override
 	public Optional<Utilisateur> getOne(Long id) {
+		System.out.println(id + "Service");
 		return utilisateurRepository.findById(id);
 	}
 
