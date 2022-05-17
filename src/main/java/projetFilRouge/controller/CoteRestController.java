@@ -88,6 +88,30 @@ public class CoteRestController {
 
 		return new ResponseEntity<>(coteDto, HttpStatus.OK);
 	}
+	
+	@PostMapping("/matchs/{matchId}/cotesList")
+	public ResponseEntity<List<CoteDto>> save (@PathVariable("matchId") Long matchId, @RequestBody List<Cote> coteList) {
+		
+		
+	List<Cote> cotes =	coteService.saveCoteListByMatch(matchId, coteList)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Match non trouvée :" + matchId));
+
+	List<CoteDto> cotesDto = new ArrayList<CoteDto>();
+	
+	for(Cote c : cotes) {
+		
+		CoteDto coteDto = new CoteDto();
+		coteDto.setId(c.getId());
+		coteDto.setStatut(c.getStatut());
+		coteDto.setValeur(c.getValeur());
+
+		coteDto.setMatchId(matchId);
+		
+		cotesDto.add(coteDto);
+		}
+
+		return new ResponseEntity<>(cotesDto, HttpStatus.OK);
+	}
 
 	@PutMapping("/matchs/{matchId}/cotes/{coteId}")
 	public ResponseEntity<CoteDto> editOneCoteByMatch(@PathVariable("matchId") Long matchId,
