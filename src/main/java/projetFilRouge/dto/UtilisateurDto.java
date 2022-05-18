@@ -6,9 +6,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import projetFilRouge.model.Avertissement;
-import projetFilRouge.model.Equipe;
-import projetFilRouge.model.Limite;
 import projetFilRouge.model.Profil;
 import projetFilRouge.model.Role;
 
@@ -37,7 +34,7 @@ public class UtilisateurDto {
 	private double montantDisponible;
 	private double montantTotalGagne;
 	private double montantTotalPerdu;
-	
+
 	private LimiteDto limite;
 
 	public LimiteDto getLimite() {
@@ -49,7 +46,7 @@ public class UtilisateurDto {
 	}
 
 	private List<AvertissementDto> avertissement;
-	
+
 	public UtilisateurDto() {
 		super();
 	}
@@ -157,7 +154,5 @@ public class UtilisateurDto {
 	public void setAvertissement(List<AvertissementDto> avertissement) {
 		this.avertissement = avertissement;
 	}
-	
-	
 
 }

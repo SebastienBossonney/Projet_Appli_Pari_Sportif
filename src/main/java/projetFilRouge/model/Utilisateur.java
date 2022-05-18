@@ -28,7 +28,7 @@ public class Utilisateur {
 	private int version;
 	@Column(length = 255)
 	private String email;
-	@Column(name="password",length = 100)
+	@Column(name = "password", length = 100)
 	private String motDePasse;
 	@Enumerated(EnumType.STRING)
 	@Column(length = 15)
@@ -63,11 +63,10 @@ public class Utilisateur {
 		super();
 		this.identifiant = identifiant;
 	}
-	
-	
 
 	public Utilisateur(Long id, String identifiant, int version, String email, String motDePasse, Role role,
-			Profil profil, double montantTotalGagne, double montantTotalPerdu, double salaire, double montantDisponible) {
+			Profil profil, double montantTotalGagne, double montantTotalPerdu, double salaire,
+			double montantDisponible) {
 		super();
 		this.id = id;
 		this.identifiant = identifiant;
@@ -191,12 +190,11 @@ public class Utilisateur {
 	}
 
 	public void setMontantDisponible(double montantDisponible) {
-		if(montantDisponible < 0 || montantDisponible > 500) {
+		if (montantDisponible < 0 || montantDisponible > 500) {
 			throw new IllegalArgumentException("le montant doit etre entre 0 et 500");
 		} else {
 			this.montantDisponible = montantDisponible;
 		}
 	}
-	
 
 }

@@ -2,7 +2,7 @@ package projetFilRouge.model;
 
 public enum Profil {
 	RISQUE("Risque"), MIRISQUE("Risque moyen"), SANSRISQUE("Sans  risque");
-	
+
 	private final String profil;
 
 	private Profil(String profil) {
@@ -13,5 +13,3 @@ public enum Profil {
 		return profil;
 	}
 }
-
-

@@ -21,7 +21,7 @@ public class PariService {
 
 	@Autowired
 	private IUtilisateurRepository utilisateurRepository;
-	
+
 	@Autowired
 	private ICoteRepository coteRepository;
 
@@ -38,8 +38,8 @@ public class PariService {
 
 		return utilisateurRepository.findById(utilisateurId).map(utilisateur -> {
 			pari.setUtilisateur(utilisateur);
-			
-			//Cote cote = coteRepository.findById(pari.getCote());
+
+			// Cote cote = coteRepository.findById(pari.getCote());
 
 			Pari pariResult = pariRepository.save(pari);
 
@@ -55,7 +55,7 @@ public class PariService {
 			pariToUpdate.setHeurePari(paridto.getHeurePari());
 			pariToUpdate.setMontantResultat(paridto.getMontantResultat());
 			pariToUpdate.setResultat(paridto.getResultat());
-            pariToUpdate.setCote(cote);
+			pariToUpdate.setCote(cote);
 			pariToUpdate = pariRepository.save(pariToUpdate);
 			// matchToUpdate.setEquipeMatchs(equipeMatchService.updateEquipesToMatch(matchToUpdate,matchdto.getEquipes()));
 
