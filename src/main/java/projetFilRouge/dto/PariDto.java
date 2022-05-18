@@ -30,7 +30,7 @@ public class PariDto {
 	private double montantResultat;
 
 	private Long utilisateurId;
-	
+
 	private Long coteId;
 
 	private MatchDto matchDto;
@@ -90,7 +90,7 @@ public class PariDto {
 	public void setMontantResultat(double montantResultat) {
 		this.montantResultat = montantResultat;
 	}
-	
+
 	public Long getCoteId() {
 		return coteId;
 	}

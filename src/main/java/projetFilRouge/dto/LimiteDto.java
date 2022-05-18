@@ -7,14 +7,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class LimiteDto {
 
 	private Long id;
-	
+
 	private Double valeur;
 
 	@JsonFormat(pattern = "dd/MM/yyyy", timezone = "Europe/Paris")
 	private Date duree;
-	
+
 	private Long utilisateurId;
-			
+
 	public LimiteDto() {
 		super();
 	}
@@ -57,6 +57,5 @@ public class LimiteDto {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
 
 }

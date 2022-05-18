@@ -30,7 +30,7 @@ public class Cote {
 
 //	@OneToOne(mappedBy = "cote")
 //	private Joueur joueur = null;
-	
+
 	@OneToOne(mappedBy = "cote")
 	@JoinColumn(name = "cote_id")
 	private Pari pari;

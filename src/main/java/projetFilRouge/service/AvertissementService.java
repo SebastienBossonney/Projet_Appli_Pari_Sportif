@@ -10,16 +10,15 @@ import projetFilRouge.model.Avertissement;
 import projetFilRouge.repository.IAvertissementRepository;
 import projetFilRouge.repository.IUtilisateurRepository;
 
-
 @Service(value = "avertissementServic")
-public class AvertissementService{
+public class AvertissementService {
 
 	@Autowired
 	private IAvertissementRepository avertissementRepository;
-	
+
 	@Autowired
 	private IUtilisateurRepository utilisateurRepository;
-	
+
 	// Retourne une liste de avertissements selon son utilisateur(id)
 	public List<Avertissement> getAvertissementsByUser(Long utilisateurId) {
 		return avertissementRepository.findByUtilisateurId(utilisateurId);
@@ -29,10 +28,10 @@ public class AvertissementService{
 	public Avertissement getUserById(Long utilisateurId) {
 		return avertissementRepository.findById(utilisateurId).get();
 	}
-	
+
 	// Retourne un avertissement(id) selon utilisateur(id)
 	public Optional<Avertissement> getOneAvertissementByUser(Long utilisateurId, Long avertissementId) {
-		return avertissementRepository.findByIdAndUtilisateurId(avertissementId,utilisateurId);
+		return avertissementRepository.findByIdAndUtilisateurId(avertissementId, utilisateurId);
 	}
 
 	// Enregistre un avertissement selon son utilisateur(id)
@@ -44,7 +43,8 @@ public class AvertissementService{
 	}
 
 	// met a jour une avertissement selon son utilisateur(id)
-	public Optional<Avertissement> editOneAvertissementByUser(Long AvertissementId,Long utilisateurId, Avertissement avertissement) {
+	public Optional<Avertissement> editOneAvertissementByUser(Long AvertissementId, Long utilisateurId,
+			Avertissement avertissement) {
 		return avertissementRepository.findById(utilisateurId).map(avertissementToUpdate -> {
 			avertissementToUpdate.setDescription(avertissement.getDescription());
 			avertissementToUpdate.setUtilisateur(avertissement.getUtilisateur());
@@ -62,7 +62,7 @@ public class AvertissementService{
 
 	public List<Avertissement> findAll(Long utilisateurId) {
 		return avertissementRepository.findAllByUtilisateurId(utilisateurId);
-		
+
 	}
 
 }

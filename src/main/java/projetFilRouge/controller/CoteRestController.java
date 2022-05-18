@@ -88,26 +88,25 @@ public class CoteRestController {
 
 		return new ResponseEntity<>(coteDto, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/matchs/{matchId}/cotesList")
-	public ResponseEntity<List<CoteDto>> save (@PathVariable("matchId") Long matchId, @RequestBody List<Cote> coteList) {
-		
-		
-	List<Cote> cotes =	coteService.saveCoteListByMatch(matchId, coteList)
+	public ResponseEntity<List<CoteDto>> save(@PathVariable("matchId") Long matchId, @RequestBody List<Cote> coteList) {
+
+		List<Cote> cotes = coteService.saveCoteListByMatch(matchId, coteList)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Match non trouvée :" + matchId));
 
-	List<CoteDto> cotesDto = new ArrayList<CoteDto>();
-	
-	for(Cote c : cotes) {
-		
-		CoteDto coteDto = new CoteDto();
-		coteDto.setId(c.getId());
-		coteDto.setStatut(c.getStatut());
-		coteDto.setValeur(c.getValeur());
+		List<CoteDto> cotesDto = new ArrayList<CoteDto>();
 
-		coteDto.setMatchId(matchId);
-		
-		cotesDto.add(coteDto);
+		for (Cote c : cotes) {
+
+			CoteDto coteDto = new CoteDto();
+			coteDto.setId(c.getId());
+			coteDto.setStatut(c.getStatut());
+			coteDto.setValeur(c.getValeur());
+
+			coteDto.setMatchId(matchId);
+
+			cotesDto.add(coteDto);
 		}
 
 		return new ResponseEntity<>(cotesDto, HttpStatus.OK);

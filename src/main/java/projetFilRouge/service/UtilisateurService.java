@@ -53,6 +53,4 @@ public class UtilisateurService implements IService<Utilisateur> {
 		return utilisateurRepository.findByEmail(email);
 	}
 
-
-
 }

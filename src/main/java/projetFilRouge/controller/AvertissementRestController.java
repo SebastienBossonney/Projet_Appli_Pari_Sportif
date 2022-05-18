@@ -32,14 +32,15 @@ public class AvertissementRestController {
 	private AvertissementService avertissementService;
 
 	@GetMapping("/utilisateurs/{userId}/avertissements")
-	public ResponseEntity<List<AvertissementDto>> getAvertissementByUser(@PathVariable("userId") Long userId, @RequestBody AvertissementDto avertissement ) {
+	public ResponseEntity<List<AvertissementDto>> getAvertissementByUser(@PathVariable("userId") Long userId,
+			@RequestBody AvertissementDto avertissement) {
 		utilisateurService.getOne(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + userId));
 
-		List<Avertissement> avertissementsList =  avertissementService.findAll(userId);
-		
+		List<Avertissement> avertissementsList = avertissementService.findAll(userId);
+
 		List<AvertissementDto> listAvertissementDto = new ArrayList<AvertissementDto>();
-		
+
 		for (Avertissement avertissementFor : avertissementsList) {
 			AvertissementDto avertissementDto = new AvertissementDto();
 			avertissementDto.setId(avertissementFor.getId());
@@ -47,12 +48,9 @@ public class AvertissementRestController {
 			avertissementDto.setUtilisateurId(userId);
 			listAvertissementDto.add(avertissementDto);
 		}
-		
-		
+
 		return new ResponseEntity<>(listAvertissementDto, HttpStatus.OK);
 	}
-	
-	
 
 	@GetMapping("/utilisateurs/{userId}/avertissements/{avertissementId}")
 	public ResponseEntity<Avertissement> getOneAvertissementByUser(@PathVariable("userId") Long userId,
@@ -67,7 +65,6 @@ public class AvertissementRestController {
 
 		return new ResponseEntity<>(avertissement, HttpStatus.OK);
 	}
-
 
 	@PostMapping("/utilisateurs/{userId}/avertissements")
 	public ResponseEntity<Avertissement> createAvertissement(@PathVariable("userId") Long userId,
